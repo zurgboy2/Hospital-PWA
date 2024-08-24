@@ -293,11 +293,29 @@ async function makeRequest(action, additionalData = {}) {
 
 async function fetchArticles() {
     try {
-        const articles = await makeRequest('fetchArticles');
+        const response = await makeRequest('fetchArticles');
+        console.log('Response from makeRequest:', response); // For debugging
+
+        let articles;
+        if (response && response.articles && Array.isArray(response.articles)) {
+            articles = response.articles;
+            // Cache the new articles
+            localStorage.setItem('cachedArticles', JSON.stringify(response));
+        } else {
+            // If the response is not as expected, try to use cached data
+            const cachedArticles = localStorage.getItem('cachedArticles');
+            const parsedData = cachedArticles ? JSON.parse(cachedArticles) : { articles: [] };
+            articles = parsedData.articles || [];
+        }
+
+        console.log('Articles to be displayed:', articles); // For debugging
         return articles;
     } catch (error) {
         console.error('Failed to fetch articles:', error);
-        return [];
+        // In case of error, try to use cached data
+        const cachedArticles = localStorage.getItem('cachedArticles');
+        const parsedData = cachedArticles ? JSON.parse(cachedArticles) : { articles: [] };
+        return parsedData.articles || [];
     }
 }
 
@@ -306,9 +324,13 @@ function truncateText(text, maxLength) {
     return text.substr(0, maxLength) + '...';
 }
 
-// Function to display articles
 function displayArticles(articles) {
     const articlesList = document.getElementById('articlesList');
+    if (!Array.isArray(articles)) {
+        console.error('Articles is not an array:', articles);
+        articlesList.innerHTML = '<p>No articles available at the moment.</p>';
+        return;
+    }
     articlesList.innerHTML = articles.map((article, index) => `
         <div class="article-item">
             <h4>${article.title}</h4>
@@ -317,6 +339,7 @@ function displayArticles(articles) {
         </div>
     `).join('');
 }
+
 
 // Function to open article modal
 function openArticleModal(index) {
