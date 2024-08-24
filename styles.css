@@ -324,6 +324,26 @@ a:hover {
     cursor: pointer;
 }
 
+.article-item button {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.article-item button:hover {
+    background-color: var(--primary-light);
+    box-shadow: 0 2px 4px rgba(128, 0, 0, 0.2);
+}
+
+.article-item button:active {
+    transform: scale(0.98);
+}
 
 @media (max-width: 600px) {
     .tabs {

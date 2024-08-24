@@ -337,7 +337,10 @@ function truncateText(text, maxLength) {
     return text.substr(0, maxLength) + '...';
 }
 
+let currentArticles = []; // Declare a variable to store the current articles
+
 function displayArticles(articles) {
+    currentArticles = articles; // Store the articles for later use
     const articlesList = document.getElementById('articlesList');
     if (!Array.isArray(articles)) {
         console.error('Articles is not an array:', articles);
@@ -353,10 +356,9 @@ function displayArticles(articles) {
     `).join('');
 }
 
-
 // Function to open article modal
 function openArticleModal(index) {
-    const article = articles[index]; // Assuming 'articles' is a global variable
+    const article = currentArticles[index]; // Use currentArticles instead of articles
     const modal = document.getElementById('articleModal');
     const modalContent = document.getElementById('articleModalContent');
     
