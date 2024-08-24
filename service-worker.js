@@ -17,10 +17,10 @@ if ('serviceWorker' in navigator) {
 const CACHE_NAME = 'patient-dashboard-cache-v3';
 const urlsToCache = [
     '/',
-    'index.html',
-    'styles.css',
-    'app.js',
-    'manifest.json'
+    '/index.html',
+    '/styles.css',
+    '/app.js',
+    '/manifest.json'
 ];
 
 self.addEventListener('install', event => {
