@@ -275,7 +275,13 @@ async function getProxyToken(action) {
 async function makeRequest(action, additionalData = {}) {
     try {
         const token = await getProxyToken(action);
-        const requestBody = { token, action, script_id: 'hospital_script', ...additionalData };
+        const requestBody = { 
+            token, 
+            action, 
+            script_id: 'hospital_script', // Make sure this matches what the backend expects
+            ...additionalData 
+        };
+        console.log('Request body:', requestBody); // Log the request body for debugging
         const response = await fetch(`${API_URL}/proxy`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -287,6 +293,7 @@ async function makeRequest(action, additionalData = {}) {
         }
         return response.json();
     } catch (error) {
+        console.error('makeRequest error:', error);
         throw error;
     }
 }
