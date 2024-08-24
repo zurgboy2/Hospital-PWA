@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Dashboard</h1>
+
+        <div id="loginSection" class="card centered">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="text" id="username" required>
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" required>
+                    <label for="password">Password</label>
+                </div>
+                <button type="submit" class="btn-primary" id="loginButton">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            <p class="text-center">Don't have an account? <a href="#" id="createAccountLink">Create one</a></p>
+        </div>
+
+        <div id="dashboardSection" class="card" style="display:none;">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="info">Info</button>
+                <button class="tab-button" data-tab="personal">Personal</button>
+                <button class="tab-button" data-tab="notes">Notes</button>
+                <button class="tab-button" data-tab="health">Health</button>
+            </div>
+
+            <div id="infoTab" class="tab-content active">
+                <h2>Latest Articles</h2>
+                <div id="articlesList">
+                    <!-- Articles will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <div id="personalTab" class="tab-content">
+                <h2>Personal Information</h2>
+                <form id="personalInfoForm">
+                    <div class="input-group">
+                        <input type="text" id="name" required>
+                        <label for="name">Full Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="age" required>
+                        <label for="age">Age</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="height" required>
+                        <label for="height">Height (cm)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="weight" required>
+                        <label for="weight">Weight (kg)</label>
+                    </div>
+                    <button type="submit" class="btn-primary">Save Personal Info</button>
+                </form>
+            </div>
+
+            <div id="notesTab" class="tab-content">
+                <h2>Secure Notes</h2>
+                <div id="notesList"></div>
+                <button id="addNoteBtn" class="btn-secondary">Add New Note</button>
+            </div>
+
+            <div id="healthTab" class="tab-content">
+                <h2>Daily Health Tracker</h2>
+                <form id="healthTrackerForm">
+                    <div class="input-group">
+                        <input type="date" id="healthDate" required>
+                        <label for="healthDate">Date</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="waterIntake" required>
+                        <label for="waterIntake">Water Intake (ml)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="colostomyOutput" required>
+                        <label for="colostomyOutput">Colostomy Bag Output (ml)</label>
+                    </div>
+                    <div class="input-group">
+                        <select id="painLevel" required>
+                            <option value="">Select pain level</option>
+                            <option value="0">0 - No Pain</option>
+                            <option value="1">1 - Mild</option>
+                            <option value="2">2 - Moderate</option>
+                            <option value="3">3 - Severe</option>
+                            <option value="4">4 - Very Severe</option>
+                            <option value="5">5 - Worst Possible Pain</option>
+                        </select>
+                        <label for="painLevel">Pain Level</label>
+                    </div>
+                    <button type="submit" class="btn-primary">Save Health Data</button>
+                </form>
+        
+                <div id="healthChartContainer">
+                    <canvas id="healthChart"></canvas>
+                </div>
+        
+                <h3>Health Data History</h3>
+                <div id="healthDataList"></div>
+            </div>
+            
+
+            <button id="logoutButton" class="btn-secondary">Logout</button>
+        </div>
+    </div>
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeArticleModal()">&times;</span>
+            <div id="articleModalContent"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
