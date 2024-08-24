@@ -294,21 +294,27 @@ async function makeRequest(action, additionalData = {}) {
 async function fetchArticles() {
     try {
         const response = await makeRequest('fetchArticles');
-        console.log('Response from makeRequest:', response); // For debugging
+        console.log('Raw response from makeRequest:', response); // Log the raw response
 
         let articles;
-        if (response && response.articles && Array.isArray(response.articles)) {
-            articles = response.articles;
-            // Cache the new articles
-            localStorage.setItem('cachedArticles', JSON.stringify(response));
+        if (response && typeof response === 'object') {
+            if (Array.isArray(response)) {
+                articles = response;
+            } else if (response.articles && Array.isArray(response.articles)) {
+                articles = response.articles;
+            } else {
+                console.error('Unexpected response structure:', response);
+                articles = [];
+            }
         } else {
-            // If the response is not as expected, try to use cached data
-            const cachedArticles = localStorage.getItem('cachedArticles');
-            const parsedData = cachedArticles ? JSON.parse(cachedArticles) : { articles: [] };
-            articles = parsedData.articles || [];
+            console.error('Invalid response:', response);
+            articles = [];
         }
 
-        console.log('Articles to be displayed:', articles); // For debugging
+        // Cache the new articles
+        localStorage.setItem('cachedArticles', JSON.stringify({ articles }));
+
+        console.log('Processed articles:', articles); // Log the processed articles
         return articles;
     } catch (error) {
         console.error('Failed to fetch articles:', error);
