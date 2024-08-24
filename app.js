@@ -17,7 +17,6 @@ const dbPromise = new Promise((resolve, reject) => {
 
     request.onsuccess = (event) => {
         db = event.target.result;
-        console.log("IndexedDB opened successfully");
         resolve(db);
     };
 
@@ -281,7 +280,6 @@ async function makeRequest(action, additionalData = {}) {
             script_id: 'hospital_script', // Make sure this matches what the backend expects
             ...additionalData 
         };
-        console.log('Request body:', requestBody); // Log the request body for debugging
         const response = await fetch(`${API_URL}/proxy`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -301,7 +299,6 @@ async function makeRequest(action, additionalData = {}) {
 async function fetchArticles() {
     try {
         const response = await makeRequest('fetchArticles');
-        console.log('Raw response from makeRequest:', response); // Log the raw response
 
         let articles;
         if (response && typeof response === 'object') {
@@ -321,7 +318,6 @@ async function fetchArticles() {
         // Cache the new articles
         localStorage.setItem('cachedArticles', JSON.stringify({ articles }));
 
-        console.log('Processed articles:', articles); // Log the processed articles
         return articles;
     } catch (error) {
         console.error('Failed to fetch articles:', error);
@@ -349,9 +345,13 @@ function displayArticles(articles) {
     }
     articlesList.innerHTML = articles.map((article, index) => `
         <div class="article-item">
-            <h4>${article.title}</h4>
-            <p>${truncateText(article.fullText, 100)}</p>
-            <button onclick="openArticleModal(${index})">Read more</button>
+            <div class="article-content">
+                <h4>${article.title}</h4>
+                <p>${truncateText(article.fullText, 100)}</p>
+            </div>
+            <div class="article-footer">
+                <button onclick="openArticleModal(${index})">Read more</button>
+            </div>
         </div>
     `).join('');
 }
@@ -715,12 +715,6 @@ document.addEventListener('DOMContentLoaded', () => {
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/hospital-PWA/service-worker.js')
-            .then(registration => {
-                console.log('Service Worker registered successfully:', registration.scope);
-            })
-            .catch(error => {
-                console.log('Service Worker registration failed:', error);
-            });
     });
 }
 

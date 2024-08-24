@@ -324,6 +324,31 @@ a:hover {
     cursor: pointer;
 }
 
+.article-item {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.article-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-content {
+    flex: 1;
+}
+
+.article-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
 .article-item button {
     background-color: var(--primary-color);
     color: var(--surface-color);
@@ -333,7 +358,6 @@ a:hover {
     cursor: pointer;
     font-size: 0.9rem;
     transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
-    margin-top: 0.5rem;
 }
 
 .article-item button:hover {
@@ -356,5 +380,8 @@ a:hover {
     .health-entry-content {
         flex-direction: column;
         gap: 0.25rem;
+    }
+    .article-footer {
+        justify-content: flex-start;
     }
 }
