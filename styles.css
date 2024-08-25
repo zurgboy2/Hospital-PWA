@@ -26,6 +26,41 @@ body {
     align-items: center;
 }
 
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+}
+
+#dashboardTitle {
+    margin: 0;
+}
+
+#accessToggleBtn {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#accessToggleBtn:hover {
+    background-color: var(--primary-light);
+    color: var(--surface-color);
+}
+
+/* Adjust the existing styles for the login sections */
+#loginSection, #doctorLoginSection {
+    margin-top: 2rem;
+}
+
 .container {
     width: 100%;
     max-width: 800px;
