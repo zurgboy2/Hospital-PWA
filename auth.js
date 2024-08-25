@@ -1,13 +1,12 @@
 import { deriveKey, encryptData, decryptData, SALT_BYTES } from './crypto.js';
 import { saveData, loadData } from './dataManager.js';
 import { setCurrentUser, setCurrentKey, getCurrentUser, getCurrentKey } from './store.js';
-import { getDbPromise, STORE_NAME, checkDatabaseState } from './db.js';
+import { getDbPromise, STORE_NAME } from './db.js';
 import { loadDashboard } from './dashboard.js';
 
 let db;
 
 export let isCreatingAccount = false;
-
 
 export function setupAuthHandlers() {
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
@@ -16,8 +15,6 @@ export function setupAuthHandlers() {
 }
 
 export async function createAccount(username, password) {
-    console.log("Creating account for:", username);
-    await checkDatabaseState();
     const db = await getDbPromise();
 
     if (username.length < 4 || password.length < 12) {
@@ -28,9 +25,7 @@ export async function createAccount(username, password) {
     const key = await deriveKey(password, salt);
     const keyVerification = await encryptData("verification", key);
 
-    console.log("Attempting to create transaction");
     const transaction = db.transaction([STORE_NAME], "readwrite");
-    console.log("Transaction created successfully");
     const objectStore = transaction.objectStore(STORE_NAME);
     
     return new Promise((resolve, reject) => {
@@ -50,12 +45,8 @@ export async function createAccount(username, password) {
 }
 
 export async function login(username, password) {
-    console.log("Logging in user:", username);
-    await checkDatabaseState();
     const db = await getDbPromise();
-    console.log("Attempting to create transaction");
     const transaction = db.transaction([STORE_NAME], "readonly");
-    console.log("Transaction created successfully");
     const objectStore = transaction.objectStore(STORE_NAME);
     
     return new Promise((resolve, reject) => {
