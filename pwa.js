@@ -1,35 +1,19 @@
 let deferredPrompt;
 
 export function setupPWA() {
-    const installButton = document.getElementById('installButton');
-    
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        installButton.classList.remove('hidden');
-    });
-
-    installButton.addEventListener('click', async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to the install prompt: ${outcome}`);
-            deferredPrompt = null;
-            installButton.classList.add('hidden');
-        } else {
-            showInstallInstructions();
-        }
+        console.log('PWA install prompt is ready to be shown');
     });
 
     window.addEventListener('appinstalled', (evt) => {
         console.log('Patient Dashboard app was installed.');
-        installButton.classList.add('hidden');
     });
 
     // Check if the app is already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
         console.log('App is already installed and running in standalone mode.');
-        installButton.classList.add('hidden');
     }
 }
 
@@ -47,4 +31,21 @@ export function showInstallInstructions() {
     }
 
     alert(instructions);
+}
+
+// Function to manually trigger the install prompt
+export function triggerInstallPrompt() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+            } else {
+                console.log('User dismissed the install prompt');
+            }
+            deferredPrompt = null;
+        });
+    } else {
+        showInstallInstructions();
+    }
 }
