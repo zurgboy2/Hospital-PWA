@@ -429,6 +429,33 @@ a:hover {
 #installButton.hidden {
     display: none;
 }
+
+#doctorAccessBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+#doctorAccessBtn:hover {
+    background-color: var(--primary-light);
+    color: var(--surface-color);
+}
+
+.login-container {
+    position: relative;
+}
+
+#loginSection, #doctorLoginSection {
+    padding-top: 50px; /* Make room for the doctor access button */
+}
 @media (max-width: 600px) {
     .tabs {
         flex-wrap: wrap;
