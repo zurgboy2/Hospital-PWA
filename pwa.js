@@ -1,15 +1,12 @@
 let deferredPrompt;
 
 export function setupPWA() {
-    const installButton = document.createElement('button');
-    installButton.textContent = 'Install App';
-    installButton.style.display = 'none';
-    document.body.appendChild(installButton);
-
+    const installButton = document.getElementById('installButton');
+    
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        installButton.style.display = 'block';
+        installButton.classList.remove('hidden');
     });
 
     installButton.addEventListener('click', async () => {
@@ -18,17 +15,21 @@ export function setupPWA() {
             const { outcome } = await deferredPrompt.userChoice;
             console.log(`User response to the install prompt: ${outcome}`);
             deferredPrompt = null;
-            installButton.style.display = 'none';
+            installButton.classList.add('hidden');
+        } else {
+            showInstallInstructions();
         }
     });
 
     window.addEventListener('appinstalled', (evt) => {
         console.log('Patient Dashboard app was installed.');
+        installButton.classList.add('hidden');
     });
 
     // Check if the app is already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
         console.log('App is already installed and running in standalone mode.');
+        installButton.classList.add('hidden');
     }
 }
 

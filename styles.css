@@ -411,6 +411,24 @@ a:hover {
     opacity: 0.9;
 }
 
+#installButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#installButton:hover {
+    background-color: var(--primary-light);
+}
+
+#installButton.hidden {
+    display: none;
+}
 @media (max-width: 600px) {
     .tabs {
         flex-wrap: wrap;
