@@ -24,8 +24,6 @@ export function initDB() {
 
             request.onupgradeneeded = (event) => {
                 const db = event.target.result;
-                const oldVersion = event.oldVersion;
-                const newVersion = event.newVersion;
 
                 if (!db.objectStoreNames.contains(STORE_NAME)) {
                     db.createObjectStore(STORE_NAME);
