@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="manifest" href="/hospital-PWA/manifest.json">
-    <link rel="stylesheet" href="/hospital-PWA/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -38,6 +38,8 @@
                 <button class="tab-button" data-tab="personal">Personal</button>
                 <button class="tab-button" data-tab="notes">Notes</button>
                 <button class="tab-button" data-tab="health">Health</button>
+                <button class="tab-button" data-tab="requests">Requests</button>
+                <button class="tab-button" data-tab="requests">Requests</button>
             </div>
 
             <div id="infoTab" class="tab-content active">
@@ -55,6 +57,10 @@
                         <label for="name">Full Name</label>
                     </div>
                     <div class="input-group">
+                        <input type="text" id="patientNumber" required>
+                        <label for="patientNumber">Full Name</label>
+                    </div>
+                    <div class="input-group">
                         <input type="number" id="age" required>
                         <label for="age">Age</label>
                     </div>
@@ -62,9 +68,9 @@
                         <input type="number" id="height" required>
                         <label for="height">Height (cm)</label>
                     </div>
-                    <div class="input-group">
-                        <input type="number" id="weight" required>
-                        <label for="weight">Weight (kg)</label>
+                    <div class="input-text">
+                        <input type="text" id="gender" required>
+                        <label for="gender">Gender</label>
                     </div>
                     <button type="submit" class="btn-primary">Save Personal Info</button>
                 </form>
@@ -113,6 +119,11 @@
                 <h3>Health Data History</h3>
                 <div id="healthDataList"></div>
             </div>
+
+            <div id="requestsTab" class="tab-content">
+                <h2>Data Requests</h2>
+                <div id="requestsList"></div>
+            </div>
             
 
             <button id="logoutButton" class="btn-secondary">Logout</button>
@@ -124,6 +135,6 @@
             <div id="articleModalContent"></div>
         </div>
     </div>
-    <script src="/hospital-PWA/app.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>

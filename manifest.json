@@ -2,7 +2,7 @@
   "name": "Patient Dashboard",
   "short_name": "PatientDash",
   "description": "A secure dashboard for patients to manage their health information",
-  "start_url": "/hospital-PWA/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#F5F5DC",
   "theme_color": "#800000",

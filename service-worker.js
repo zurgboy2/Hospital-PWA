@@ -3,8 +3,22 @@ const urlsToCache = [
   '/hospital-PWA/',
   '/hospital-PWA/index.html',
   '/hospital-PWA/styles.css',
-  '/hospital-PWA/app.js',
-  '/hospital-PWA/manifest.json'
+  '/hospital-PWA/main.js',
+  '/hospital-PWA/manifest.json',
+  '/hospital-PWA/api.js',
+  '/hospital-PWA/article.js',
+  '/hospital-PWA/auth.js',
+  '/hospital-PWA/crypto.js',
+  '/hospital-PWA/dashboard.js',
+  '/hospital-PWA/dataManager.js',
+  '/hospital-PWA/db.js',
+  '/hospital-PWA/healthData.js',
+  '/hospital-PWA/note.js',
+  '/hospital-PWA/personalInfo.js',
+  '/hospital-PWA/pwa.js',
+  '/hospital-PWA/requests.js',
+  '/hospital-PWA/serviceWorker.js',
+  '/hospital-PWA/store.js'
 ];
 
 self.addEventListener('install', event => {
