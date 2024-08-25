@@ -1,8 +1,5 @@
-const DB_NAME = "PatientDashboardDB";
-const DB_VERSION = 2; // Increment the version to trigger an upgrade
-export const STORE_NAME = "userdata"; // Match the existing store name
-
-let dbPromise;
+export const STORE_NAME = "userdata";
+export const DOCTOR_STORE_NAME = "doctordata";
 
 export function initDB() {
     if (!dbPromise) {
@@ -15,8 +12,8 @@ export function initDB() {
 
             request.onsuccess = (event) => {
                 const db = event.target.result;
-                if (!db.objectStoreNames.contains(STORE_NAME)) {
-                    reject(new Error(`Object store ${STORE_NAME} not found`));
+                if (!db.objectStoreNames.contains(STORE_NAME) || !db.objectStoreNames.contains(DOCTOR_STORE_NAME)) {
+                    reject(new Error(`Required object store not found`));
                 } else {
                     resolve(db);
                 }
@@ -27,24 +24,11 @@ export function initDB() {
                 if (!db.objectStoreNames.contains(STORE_NAME)) {
                     db.createObjectStore(STORE_NAME);
                 }
+                if (!db.objectStoreNames.contains(DOCTOR_STORE_NAME)) {
+                    db.createObjectStore(DOCTOR_STORE_NAME);
+                }
             };
         });
     }
     return dbPromise;
-}
-
-export async function getDbPromise() {
-    if (!dbPromise) {
-        return initDB();
-    }
-    return dbPromise;
-}
-
-export async function checkDatabaseState() {
-    try {
-        await getDbPromise();
-        return true;
-    } catch (error) {
-        return false;
-    }
 }

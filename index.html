@@ -16,6 +16,7 @@
 </head>
 <body>
     <div class="container">
+        <button id="doctorAccessBtn" class="btn-secondary">Doctor Access</button>
         <h1>Patient Dashboard</h1>
 
         <div id="loginSection" class="card centered">
@@ -34,6 +35,22 @@
                 </button>
             </form>
             <p class="text-center">Don't have an account? <a href="#" id="createAccountLink">Create one</a></p>
+        </div>
+
+        <div id="doctorLoginSection" class="card centered" style="display:none;">
+            <h2>Doctor Login</h2>
+            <form id="doctorLoginForm">
+                <div class="input-group">
+                    <input type="text" id="doctorUsername" required>
+                    <label for="doctorUsername">Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="doctorPassword" required>
+                    <label for="doctorPassword">Password</label>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <p class="text-center">Don't have an account? <a href="#" id="doctorCreateAccountLink">Create one</a></p>
         </div>
 
         <div id="dashboardSection" class="card" style="display:none;">
@@ -140,5 +157,6 @@
         </div>
     </div>
     <script type="module" src="/hospital-PWA/main.js"></script>
+    <script type="module" src="/hospital-PWA/doctor.js"></script>
 </body>
 </html>
