@@ -3,14 +3,19 @@ import { loadHealthData, handleHealthDataSubmit } from './healthData.js';
 import { loadNotes, handleAddNote } from './note.js';
 import { loadArticles } from './article.js';
 import { loadRequests } from './requests.js';
+import { downloadBackup } from './backup.js';
 
 export function setupDashboardHandlers() {
-    // Set up event listeners for dashboard elements
+    // Existing handlers
     initializeTabs();
     document.getElementById('personalInfoForm').addEventListener('submit', handlePersonalInfoSubmit);
     document.getElementById('addNoteBtn').addEventListener('click', handleAddNote);
     document.getElementById('healthTrackerForm').addEventListener('submit', handleHealthDataSubmit);
     document.querySelector('.tab-button[data-tab="requests"]').addEventListener('click', loadRequests);
+    
+    // New handler for backup button
+    document.getElementById('createBackupBtn').addEventListener('click', handleCreateBackup);
+
     const today = new Date().toISOString().split('T')[0];
     const healthDateInput = document.getElementById('healthDate');
     healthDateInput.value = today;
@@ -41,4 +46,14 @@ export async function loadDashboard() {
         loadArticles(),
         loadRequests()
     ]);
+}
+
+async function handleCreateBackup() {
+    try {
+        await downloadBackup();
+        alert('Backup created and downloaded successfully!');
+    } catch (error) {
+        console.error('Failed to create backup:', error);
+        alert('Failed to create backup. Please try again.');
+    }
 }

@@ -3,16 +3,23 @@ import { deriveKey, encryptData, decryptData, SALT_BYTES } from './crypto.js';
 
 const DOCTOR_STORE_NAME = 'doctordata';
 
+let currentDoctorSection = 'login'; // Can be 'login' or 'signup'
+
 export function setupDoctorHandlers() {
     document.getElementById('doctorAccessBtn').addEventListener('click', showDoctorLogin);
     document.getElementById('doctorLoginForm').addEventListener('submit', handleDoctorLogin);
     document.getElementById('doctorCreateAccountLink').addEventListener('click', showDoctorSignup);
+    document.getElementById('doctorSignupForm').addEventListener('submit', handleDoctorSignup);
+    document.getElementById('doctorLoginLink').addEventListener('click', showDoctorLogin);
 }
 
-function showDoctorLogin() {
+export function showDoctorLogin() {
     document.getElementById('loginSection').style.display = 'none';
     document.getElementById('doctorLoginSection').style.display = 'block';
+    document.getElementById('doctorSignupSection').style.display = 'none';
+    currentDoctorSection = 'login';
 }
+
 
 async function handleDoctorLogin(e) {
     e.preventDefault();
@@ -32,10 +39,13 @@ async function handleDoctorLogin(e) {
     }
 }
 
-function showDoctorSignup() {
-    // TODO: Implement doctor signup form
-    alert('Doctor signup functionality coming soon!');
+export function showDoctorSignup() {
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('doctorLoginSection').style.display = 'none';
+    document.getElementById('doctorSignupSection').style.display = 'block';
+    currentDoctorSection = 'signup';
 }
+
 
 async function createDoctorAccount(username, password) {
     const db = await initDB();

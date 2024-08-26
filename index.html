@@ -55,6 +55,30 @@
             <p class="text-center">Don't have an account? <a href="#" id="doctorCreateAccountLink">Create one</a></p>
         </div>
 
+        <div id="doctorSignupSection" class="card centered" style="display:none;">
+            <h2>Doctor Signup</h2>
+            <form id="doctorSignupForm">
+                <div class="input-group">
+                    <input type="text" id="doctorSignupUsername" required>
+                    <label for="doctorSignupUsername">Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="doctorSignupPassword" required>
+                    <label for="doctorSignupPassword">Password</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="doctorLicenseNumber" required>
+                    <label for="doctorLicenseNumber">Medical License Number</label>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="doctorEmail" required>
+                    <label for="doctorEmail">Email</label>
+                </div>
+                <button type="submit" class="btn-primary">Sign Up</button>
+            </form>
+            <p class="text-center">Already have an account? <a href="#" id="doctorLoginLink">Login</a></p>
+        </div>
+
         <div id="dashboardSection" class="card" style="display:none;">
             <div class="tabs">
                 <button class="tab-button active" data-tab="info">Info</button>
@@ -62,6 +86,7 @@
                 <button class="tab-button" data-tab="notes">Notes</button>
                 <button class="tab-button" data-tab="health">Health</button>
                 <button class="tab-button" data-tab="requests">Requests</button>
+                <button class="tab-button" data-tab="settings">Settings</button>
             </div>
 
             <div id="infoTab" class="tab-content active">
@@ -145,6 +170,12 @@
             <div id="requestsTab" class="tab-content">
                 <h2>Data Requests</h2>
                 <div id="requestsList"></div>
+            </div>
+
+            <div id="settingsTab" class="tab-content">
+                <h2>Settings</h2>
+                <button id="createBackupBtn" class="btn-primary">Create Backup</button>
+                <!-- Add other settings options here -->
             </div>
             
 

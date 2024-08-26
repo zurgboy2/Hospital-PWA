@@ -38,6 +38,7 @@ header {
 
 #dashboardTitle {
     margin: 0;
+    color: white;
 }
 
 #accessToggleBtn {
@@ -490,6 +491,37 @@ a:hover {
 
 #loginSection, #doctorLoginSection {
     padding-top: 50px; /* Make room for the doctor access button */
+}
+
+#createBackupBtn {
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+#createBackupBtn:hover {
+    background-color: var(--primary-light);
+}
+
+#createBackupBtn:active {
+    transform: scale(0.98);
+}
+
+/* Ensure the settings tab content is styled consistently */
+#settingsTab {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#settingsTab h2 {
+    margin-bottom: 1rem;
 }
 @media (max-width: 600px) {
     .tabs {
