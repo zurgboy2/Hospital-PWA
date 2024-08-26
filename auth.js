@@ -136,6 +136,7 @@ function showRecoveryKey(recoveryKey, callback) {
         callback(); // Resolve the promise when the user closes the modal
     });
 }
+
 function toggleAccountCreation(e) {
     e.preventDefault();
     isCreatingAccount = !isCreatingAccount;
