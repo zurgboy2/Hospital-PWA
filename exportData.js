@@ -20,7 +20,7 @@ function showExportDataModal() {
                 <input type="date" id="endDate" required>
             </div>
             <div class="input-group">
-                <label>Select data to export:</label>
+                <p>Select data to export:</p>
                 <div>
                     <input type="checkbox" id="exportHealth" value="healthHistory">
                     <label for="exportHealth">Health Data</label>
