@@ -3,6 +3,7 @@ import { setupAuthHandlers } from './auth.js';
 import { setupDashboardHandlers } from './dashboard.js';
 import { registerServiceWorker } from './serviceWorker.js';
 import { setupPWA } from './pwa.js';
+import { scheduleBackups, remindBackupAndKeyVerification } from './backup.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     await initDB();
@@ -10,6 +11,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupDashboardHandlers();
     registerServiceWorker();
     setupPWA();
+    scheduleBackups();
+    remindBackupAndKeyVerification();
     const accessToggleBtn = document.getElementById('accessToggleBtn');
     const dashboardTitle = document.getElementById('dashboardTitle');
     const loginSection = document.getElementById('loginSection');

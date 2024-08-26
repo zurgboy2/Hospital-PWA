@@ -1,6 +1,7 @@
 import { deriveKey, encryptData, decryptData, SALT_BYTES } from './crypto.js';
 import { saveData, loadData } from './dataManager.js';
 import { setCurrentUser, setCurrentKey, getCurrentUser, getCurrentKey } from './store.js';
+import { generateRecoveryKey } from './backup.js';
 import { getDbPromise, STORE_NAME } from './db.js';
 import { loadDashboard } from './dashboard.js';
 
@@ -25,6 +26,9 @@ export async function createAccount(username, password) {
     const key = await deriveKey(password, salt);
     const keyVerification = await encryptData("verification", key);
 
+    const recoveryKey = generateRecoveryKey();
+    const encryptedRecoveryKey = await encryptData(recoveryKey, key);
+
     const transaction = db.transaction([STORE_NAME], "readwrite");
     const objectStore = transaction.objectStore(STORE_NAME);
     
@@ -35,8 +39,8 @@ export async function createAccount(username, password) {
             if (event.target.result) {
                 reject(new Error('Username already exists.'));
             } else {
-                objectStore.put({ salt: Array.from(salt), keyVerification, personalInfo: null, notes: [], healthData: [] }, username);
-                resolve(key);
+                objectStore.put({ salt: Array.from(salt), keyVerification, encryptedRecoveryKey, personalInfo: null, notes: [], healthData: [] }, username);
+                resolve({ key, recoveryKey });
             }
         };
         
@@ -96,21 +100,40 @@ async function handleLogin(e) {
     const password = document.getElementById('password').value;
     
     try {
-        let key;
+        let result;
         if (isCreatingAccount) {
-            key = await createAccount(username, password);
-            alert('Account created successfully!');
+            result = await createAccount(username, password);
+            showRecoveryKey(result.recoveryKey);
         } else {
-            key = await login(username, password);
+            result = { key: await login(username, password) };
         }
         setCurrentUser(username);
-        setCurrentKey(key);
+        setCurrentKey(result.key);
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('dashboardSection').style.display = 'block';
         loadDashboard();
     } catch (error) {
         alert(error.message);
     }
+}
+
+function showRecoveryKey(recoveryKey) {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h2>Account Created Successfully</h2>
+            <p>Your recovery key is:</p>
+            <p class="recovery-key">${recoveryKey}</p>
+            <p>Please save this key in a secure location. You will need it to recover your account if you forget your password.</p>
+            <button id="closeModal" class="btn-primary">I've Saved My Recovery Key</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    document.getElementById('closeModal').addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
 }
 
 function toggleAccountCreation(e) {
