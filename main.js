@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupDashboardHandlers();
     registerServiceWorker();
     setupPWA();
-    remindBackupAndKeyVerification();
     const accessToggleBtn = document.getElementById('accessToggleBtn');
     const dashboardTitle = document.getElementById('dashboardTitle');
     const loginSection = document.getElementById('loginSection');
