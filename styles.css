@@ -541,7 +541,7 @@ a:hover {
     padding: 20px;
     border: 1px solid var(--secondary-color);
     border-radius: 8px;
-    width: 80%;
+    width: 90%;
     max-width: 500px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -551,37 +551,39 @@ a:hover {
     margin-bottom: 1rem;
 }
 
-.export-modal .input-group {
+.export-input-group {
     margin-bottom: 1rem;
 }
 
-.export-modal label {
+.export-input-group label {
     display: block;
     margin-bottom: 0.5rem;
     color: var(--text-primary);
 }
 
-.export-modal input[type="date"],
-.export-modal input[type="checkbox"] {
+.export-input-group input[type="date"] {
+    width: 100%;
+    padding: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
-.export-modal .checkbox-group {
+.export-checkbox-group {
     display: flex;
     align-items: center;
     margin-bottom: 0.5rem;
 }
 
-.export-modal .checkbox-group input[type="checkbox"] {
+.export-checkbox-group input[type="checkbox"] {
     margin-right: 0.5rem;
 }
 
-.export-modal .btn-group {
+.export-btn-group {
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
     margin-top: 1rem;
 }
+
 @media (max-width: 600px) {
     .tabs {
         flex-wrap: wrap;

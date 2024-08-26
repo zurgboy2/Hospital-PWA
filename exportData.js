@@ -12,30 +12,30 @@ function showExportDataModal() {
     modal.innerHTML = `
         <div class="export-modal-content">
             <h2>Export Data as Excel</h2>
-            <div class="input-group">
+            <div class="export-input-group">
                 <label for="startDate">Start Date:</label>
                 <input type="date" id="startDate" required>
             </div>
-            <div class="input-group">
+            <div class="export-input-group">
                 <label for="endDate">End Date:</label>
                 <input type="date" id="endDate" required>
             </div>
-            <div class="input-group">
+            <div class="export-input-group">
                 <p>Select data to export:</p>
-                <div class="checkbox-group">
+                <div class="export-checkbox-group">
                     <input type="checkbox" id="exportHealth" value="healthHistory">
                     <label for="exportHealth">Health Data</label>
                 </div>
-                <div class="checkbox-group">
+                <div class="export-checkbox-group">
                     <input type="checkbox" id="exportNotes" value="notes">
                     <label for="exportNotes">Notes</label>
                 </div>
-                <div class="checkbox-group">
+                <div class="export-checkbox-group">
                     <input type="checkbox" id="exportPersonal" value="personalInfo">
                     <label for="exportPersonal">Personal Information</label>
                 </div>
             </div>
-            <div class="btn-group">
+            <div class="export-btn-group">
                 <button id="generateExcelBtn" class="btn-primary">Generate Excel</button>
                 <button id="closeModalBtn" class="btn-secondary">Cancel</button>
             </div>
@@ -55,6 +55,7 @@ function showExportDataModal() {
         }
     });
 }
+
 
 async function handleExportData() {
     const startDate = document.getElementById('startDate').value;
