@@ -103,7 +103,7 @@ async function handleLogin(e) {
         let result;
         if (isCreatingAccount) {
             result = await createAccount(username, password);
-            showRecoveryKey(result.recoveryKey);
+            await new Promise(resolve => showRecoveryKey(result.recoveryKey, resolve));
         } else {
             result = { key: await login(username, password) };
         }
@@ -117,7 +117,7 @@ async function handleLogin(e) {
     }
 }
 
-function showRecoveryKey(recoveryKey) {
+function showRecoveryKey(recoveryKey, callback) {
     const modal = document.createElement('div');
     modal.className = 'modal';
     modal.innerHTML = `
@@ -133,18 +133,35 @@ function showRecoveryKey(recoveryKey) {
     
     document.getElementById('closeModal').addEventListener('click', () => {
         document.body.removeChild(modal);
+        callback(); // Resolve the promise when the user closes the modal
     });
 }
-
 function toggleAccountCreation(e) {
     e.preventDefault();
     isCreatingAccount = !isCreatingAccount;
     const loginButton = document.getElementById('loginButton');
+    const authHeader = document.getElementById('authHeader');
+    const authDescription = document.getElementById('authDescription');
+    const usernameLabel = document.querySelector('label[for="username"]');
+    const passwordLabel = document.querySelector('label[for="password"]');
+
     if (isCreatingAccount) {
         loginButton.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
         e.target.textContent = 'Back to Login';
+        authHeader.textContent = 'Create Account';
+        authDescription.textContent = 'Enter your details to create a new account.';
+        usernameLabel.textContent = 'Choose a Username';
+        passwordLabel.textContent = 'Choose a Password';
     } else {
         loginButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
         e.target.textContent = 'Create one';
+        authHeader.textContent = 'Login';
+        authDescription.textContent = 'Enter your credentials to access your account.';
+        usernameLabel.textContent = 'Username';
+        passwordLabel.textContent = 'Password';
     }
+
+    // Clear input fields when toggling
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
 }
