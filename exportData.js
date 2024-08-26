@@ -8,6 +8,7 @@ export async function setupExportDataHandler() {
 function showExportDataModal() {
     const modal = document.createElement('div');
     modal.className = 'modal';
+    modal.style.display = 'block'; // Explicitly set display to block
     modal.innerHTML = `
         <div class="modal-content">
             <h2>Export Data as Excel</h2>
