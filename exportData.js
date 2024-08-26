@@ -7,10 +7,10 @@ export async function setupExportDataHandler() {
 
 function showExportDataModal() {
     const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.style.display = 'block'; // Explicitly set display to block
+    modal.className = 'export-modal';
+    modal.style.display = 'block';
     modal.innerHTML = `
-        <div class="modal-content">
+        <div class="export-modal-content">
             <h2>Export Data as Excel</h2>
             <div class="input-group">
                 <label for="startDate">Start Date:</label>
@@ -22,21 +22,23 @@ function showExportDataModal() {
             </div>
             <div class="input-group">
                 <p>Select data to export:</p>
-                <div>
+                <div class="checkbox-group">
                     <input type="checkbox" id="exportHealth" value="healthHistory">
                     <label for="exportHealth">Health Data</label>
                 </div>
-                <div>
+                <div class="checkbox-group">
                     <input type="checkbox" id="exportNotes" value="notes">
                     <label for="exportNotes">Notes</label>
                 </div>
-                <div>
+                <div class="checkbox-group">
                     <input type="checkbox" id="exportPersonal" value="personalInfo">
                     <label for="exportPersonal">Personal Information</label>
                 </div>
             </div>
-            <button id="generateExcelBtn" class="btn-primary">Generate Excel</button>
-            <button id="closeModalBtn" class="btn-secondary">Cancel</button>
+            <div class="btn-group">
+                <button id="generateExcelBtn" class="btn-primary">Generate Excel</button>
+                <button id="closeModalBtn" class="btn-secondary">Cancel</button>
+            </div>
         </div>
     `;
     document.body.appendChild(modal);
@@ -44,6 +46,13 @@ function showExportDataModal() {
     document.getElementById('generateExcelBtn').addEventListener('click', handleExportData);
     document.getElementById('closeModalBtn').addEventListener('click', () => {
         document.body.removeChild(modal);
+    });
+
+    // Close modal if clicking outside the content
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+        }
     });
 }
 
@@ -67,7 +76,7 @@ async function handleExportData() {
     try {
         const data = await fetchDataForExport(startDate, endDate, exportHealth, exportNotes, exportPersonal);
         generateExcelFile(data);
-        document.body.removeChild(document.querySelector('.modal'));
+        document.body.removeChild(document.querySelector('.export-modal'));
     } catch (error) {
         console.error('Error exporting data:', error);
         alert('An error occurred while exporting data. Please try again.');
