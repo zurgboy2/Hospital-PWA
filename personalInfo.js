@@ -9,8 +9,7 @@ export async function handlePersonalInfoSubmit(e) {
         name: document.getElementById('name').value,
         age: document.getElementById('age').value,
         height: document.getElementById('height').value,
-        gender: document.getElementById('gender').value,
-        patientNumber: document.getElementById('patientNumber').value
+        gender: document.getElementById('gender').value
     };
     
     try {
