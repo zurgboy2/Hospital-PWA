@@ -149,14 +149,14 @@ function toggleAccountCreation(e) {
         loginButton.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
         e.target.textContent = 'Back to Login';
         authHeader.textContent = 'Create Account';
-        authDescription.textContent = 'Enter your details to create a new account.';
+        authDescription.textContent = 'Remembered you had one? ';
         usernameLabel.textContent = 'Choose a Username';
         passwordLabel.textContent = 'Choose a Password';
     } else {
         loginButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
         e.target.textContent = 'Create one';
         authHeader.textContent = 'Login';
-        authDescription.textContent = 'Enter your credentials to access your account.';
+        authDescription.textContent = "Don't have an account?";
         usernameLabel.textContent = 'Username';
         passwordLabel.textContent = 'Password';
     }
