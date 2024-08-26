@@ -101,10 +101,3 @@ export async function restoreFromFile(file, recoveryKey) {
         reader.readAsText(file);
     });
 }
-
-export { 
-    selectBackupDirectory,
-    createBackup,
-    scheduleBackups,
-    restoreFromFile
-};
