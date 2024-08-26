@@ -56,7 +56,6 @@ function showExportDataModal() {
     });
 }
 
-
 async function handleExportData() {
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
