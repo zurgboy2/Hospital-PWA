@@ -3,7 +3,7 @@ import { loadHealthData, handleHealthDataSubmit } from './healthData.js';
 import { loadNotes, handleAddNote } from './note.js';
 import { loadArticles } from './article.js';
 import { loadRequests } from './requests.js';
-import { downloadBackup } from './backup.js';
+import { selectBackupDirectory, createBackup, scheduleBackups } from './backup.js';
 
 export function setupDashboardHandlers() {
     // Existing handlers
@@ -13,12 +13,30 @@ export function setupDashboardHandlers() {
     document.getElementById('healthTrackerForm').addEventListener('submit', handleHealthDataSubmit);
     document.querySelector('.tab-button[data-tab="requests"]').addEventListener('click', loadRequests);
     document.getElementById('createBackupBtn').addEventListener('click', handleCreateBackup);
+    document.getElementById('selectBackupDirBtn').addEventListener('click', handleSelectBackupDirectory);
+    document.getElementById('createBackupBtn').addEventListener('click', handleCreateBackup);
+
 
     const today = new Date().toISOString().split('T')[0];
     const healthDateInput = document.getElementById('healthDate');
     healthDateInput.value = today;
     healthDateInput.max = today;
 }
+
+async function handleSelectBackupDirectory() {
+    await selectBackupDirectory();
+}
+
+async function handleCreateBackup() {
+    try {
+        await createBackup();
+        alert('Backup created successfully!');
+    } catch (error) {
+        console.error('Failed to create backup:', error);
+        alert('Failed to create backup. Please try again.');
+    }
+}
+
 
 function initializeTabs() {
     const tabs = document.querySelectorAll('.tab-button');
@@ -44,14 +62,11 @@ export async function loadDashboard() {
         loadArticles(),
         loadRequests()
     ]);
-}
+    scheduleBackups();
 
-async function handleCreateBackup() {
-    try {
-        await downloadBackup();
-        alert('Backup created and downloaded successfully!');
-    } catch (error) {
-        console.error('Failed to create backup:', error);
-        alert('Failed to create backup. Please try again.');
+    // Check if a backup directory has been selected before
+    const backupDirSelected = localStorage.getItem('backupDirectorySelected');
+    if (!backupDirSelected) {
+        alert('Please select a directory for automatic backups in the settings.');
     }
 }

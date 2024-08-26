@@ -2,120 +2,109 @@ import { getCurrentUser, getCurrentKey } from './store.js';
 import { encryptData, decryptData } from './crypto.js';
 import { loadData, saveData } from './dataManager.js';
 
-function generateRecoveryKey() {
-    const array = new Uint8Array(32);
-    window.crypto.getRandomValues(array);
-    return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+let backupDirectory = null;
+
+// Check if the File System Access API is supported
+const isFileSystemAccessSupported = 'showDirectoryPicker' in window;
+
+// Function to let user select a backup directory
+export async function selectBackupDirectory() {
+    if (!isFileSystemAccessSupported) {
+        alert('Your browser does not support selecting directories. Backups will be downloaded manually.');
+        return;
+    }
+
+    try {
+        backupDirectory = await window.showDirectoryPicker();
+        localStorage.setItem('backupDirectorySelected', 'true');
+        alert('Backup directory selected successfully. Automatic backups will be saved here.');
+    } catch (error) {
+        console.error('Failed to select backup directory:', error);
+        alert('Failed to select backup directory. Please try again.');
+    }
 }
 
-// Create a backup
-async function createBackup() {
+// Function to create and save a backup
+export async function createBackup() {
     const currentUser = getCurrentUser();
     const currentKey = getCurrentKey();
     const data = await loadData(currentUser, currentKey);
     
     // Encrypt the data using the current key
     const encryptedBackup = await encryptData(JSON.stringify(data), currentKey);
-    
-    // Store in IndexedDB
-    const db = await openBackupDB();
-    const transaction = db.transaction(['backups'], 'readwrite');
-    const store = transaction.objectStore('backups');
-    await store.put(encryptedBackup, currentUser);
-    
-    console.log('Backup created successfully');
-    return encryptedBackup; // Return for potential download
-}
+    const backupContent = JSON.stringify(encryptedBackup);
 
-// Restore from backup
-async function restoreFromBackup(recoveryKey, backupData = null) {
-    const currentUser = getCurrentUser();
-    
-    let encryptedBackup;
-    if (backupData) {
-        // Use provided backup data (e.g., from a file)
-        encryptedBackup = backupData;
+    const filename = `backup_${currentUser}_${new Date().toISOString()}.json`;
+
+    if (backupDirectory && isFileSystemAccessSupported) {
+        try {
+            const fileHandle = await backupDirectory.getFileHandle(filename, { create: true });
+            const writable = await fileHandle.createWritable();
+            await writable.write(backupContent);
+            await writable.close();
+            console.log('Backup saved successfully to selected directory');
+        } catch (error) {
+            console.error('Failed to save backup to selected directory:', error);
+            // Fallback to download if saving to directory fails
+            downloadBackup(backupContent, filename);
+        }
     } else {
-        // Retrieve the encrypted backup from IndexedDB
-        const db = await openBackupDB();
-        const transaction = db.transaction(['backups'], 'readonly');
-        const store = transaction.objectStore('backups');
-        encryptedBackup = await store.get(currentUser);
+        // Fallback to download if directory not selected or API not supported
+        downloadBackup(backupContent, filename);
     }
-    
-    if (!encryptedBackup) {
-        throw new Error('No backup found');
-    }
-    
-    // Decrypt the backup using the recovery key
-    const decryptedData = await decryptData(encryptedBackup, recoveryKey);
-    const restoredData = JSON.parse(decryptedData);
-    
-    // Save the restored data
-    await saveData(currentUser, restoredData, recoveryKey);
-    
-    console.log('Data restored successfully');
-}
-
-// Open or create the backup database
-function openBackupDB() {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open('BackupDB', 1);
-        
-        request.onerror = () => reject(request.error);
-        request.onsuccess = () => resolve(request.result);
-        
-        request.onupgradeneeded = () => {
-            const db = request.result;
-            db.createObjectStore('backups');
-        };
-    });
-}
-
-// Schedule regular backups
-function scheduleBackups() {
-    // Create a backup every day
-    setInterval(createBackup, 24 * 60 * 60 * 1000);
-}
-
-// Reminder to verify recovery key and create external backup
-function remindBackupAndKeyVerification() {
-    // Remind every 30 days
-    setInterval(() => {
-        alert('Please verify your recovery key and create an external backup to ensure you can recover your account if needed.');
-    }, 30 * 24 * 60 * 60 * 1000);
 }
 
 // Function to download backup as a file
-async function downloadBackup() {
-    const backup = await createBackup();
-    const blob = new Blob([JSON.stringify(backup)], { type: 'application/json' });
+function downloadBackup(content, filename) {
+    const blob = new Blob([content], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `backup_${new Date().toISOString()}.json`;
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
 
-// Function to restore from a file backup
-async function restoreFromFile(file, recoveryKey) {
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-        const backupData = JSON.parse(event.target.result);
-        await restoreFromBackup(recoveryKey, backupData);
-    };
-    reader.readAsText(file);
+// Function to schedule regular backups
+export function scheduleBackups() {
+    // Check if a backup is needed every hour when the app is open
+    setInterval(async () => {
+        const lastBackup = localStorage.getItem('lastBackupTime');
+        const now = new Date().getTime();
+        const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+        if (!lastBackup || now - parseInt(lastBackup) > oneDay) {
+            await createBackup();
+            localStorage.setItem('lastBackupTime', now.toString());
+        }
+    }, 60 * 60 * 1000); // Check every hour
+}
+
+// Function to restore from a backup file
+export async function restoreFromFile(file, recoveryKey) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            try {
+                const encryptedBackup = JSON.parse(event.target.result);
+                const decryptedData = await decryptData(encryptedBackup, recoveryKey);
+                const restoredData = JSON.parse(decryptedData);
+                await saveData(restoredData.username, restoredData, recoveryKey);
+                resolve(restoredData.username);
+            } catch (error) {
+                reject(new Error('Failed to restore from backup: ' + error.message));
+            }
+        };
+        reader.onerror = () => reject(new Error('Failed to read the backup file'));
+        reader.readAsText(file);
+    });
 }
 
 export { 
-    generateRecoveryKey, 
-    createBackup, 
-    restoreFromBackup, 
-    scheduleBackups, 
-    remindBackupAndKeyVerification,
-    downloadBackup,
+    selectBackupDirectory,
+    createBackup,
+    scheduleBackups,
     restoreFromFile
 };
