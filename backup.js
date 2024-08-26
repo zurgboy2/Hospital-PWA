@@ -24,6 +24,12 @@ export async function selectBackupDirectory() {
     }
 }
 
+export function generateRecoveryKey() {
+    const array = new Uint8Array(32);
+    window.crypto.getRandomValues(array);
+    return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
 // Function to create and save a backup
 export async function createBackup() {
     const currentUser = getCurrentUser();
