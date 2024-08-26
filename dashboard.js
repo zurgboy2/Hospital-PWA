@@ -12,8 +12,6 @@ export function setupDashboardHandlers() {
     document.getElementById('addNoteBtn').addEventListener('click', handleAddNote);
     document.getElementById('healthTrackerForm').addEventListener('submit', handleHealthDataSubmit);
     document.querySelector('.tab-button[data-tab="requests"]').addEventListener('click', loadRequests);
-    
-    // New handler for backup button
     document.getElementById('createBackupBtn').addEventListener('click', handleCreateBackup);
 
     const today = new Date().toISOString().split('T')[0];
