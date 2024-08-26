@@ -523,6 +523,7 @@ a:hover {
     transform: scale(0.98);
 }
 
+/*export modal styles */
 .export-modal {
     display: none;
     position: fixed;
