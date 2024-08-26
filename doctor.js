@@ -8,7 +8,7 @@ let currentDoctorSection = 'login'; // Can be 'login' or 'signup'
 export function setupDoctorHandlers() {
     document.getElementById('doctorLoginForm').addEventListener('submit', handleDoctorLogin);
     document.getElementById('doctorCreateAccountLink').addEventListener('click', showDoctorSignup);
-    document.getElementById('doctorSignupForm').addEventListener('submit', handleDoctorSignup);
+    // document.getElementById('doctorSignupForm').addEventListener('submit', handleDoctorSignup);
     document.getElementById('doctorLoginLink').addEventListener('click', showDoctorLogin);
 }
 
