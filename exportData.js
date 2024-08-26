@@ -1,6 +1,5 @@
 import { getCurrentUser, getCurrentKey } from './store.js';
 import { loadData } from './dataManager.js';
-import * as XLSX from 'https://cdn.sheetjs.com/xlsx-0.19.3/package/xlsx.mjs';
 
 export async function setupExportDataHandler() {
     document.getElementById('exportDataBtn').addEventListener('click', showExportDataModal);
