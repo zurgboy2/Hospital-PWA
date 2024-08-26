@@ -6,7 +6,6 @@ const DOCTOR_STORE_NAME = 'doctordata';
 let currentDoctorSection = 'login'; // Can be 'login' or 'signup'
 
 export function setupDoctorHandlers() {
-    document.getElementById('doctorAccessBtn').addEventListener('click', showDoctorLogin);
     document.getElementById('doctorLoginForm').addEventListener('submit', handleDoctorLogin);
     document.getElementById('doctorCreateAccountLink').addEventListener('click', showDoctorSignup);
     document.getElementById('doctorSignupForm').addEventListener('submit', handleDoctorSignup);
