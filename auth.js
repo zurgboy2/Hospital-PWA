@@ -120,6 +120,7 @@ async function handleLogin(e) {
 function showRecoveryKey(recoveryKey, callback) {
     const modal = document.createElement('div');
     modal.className = 'modal';
+    modal.style.display = 'block'; // Explicitly set display to block
     modal.innerHTML = `
         <div class="modal-content">
             <h2>Account Created Successfully</h2>
