@@ -523,6 +523,9 @@ a:hover {
     transform: scale(0.98);
 }
 
+/* ... (existing styles remain the same) ... */
+
+/* Export Data Modal Styles */
 .export-modal {
     display: none;
     position: fixed;
@@ -544,7 +547,6 @@ a:hover {
     width: 90%;
     max-width: 500px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
 }
 
 .export-modal-content h2 {
@@ -554,7 +556,6 @@ a:hover {
 
 .export-modal-content .export-input-group {
     margin-bottom: 1rem;
-    position: relative;
 }
 
 .export-modal-content .export-input-group label {
@@ -583,6 +584,8 @@ a:hover {
 .export-modal-content .export-checkbox-group label {
     display: inline;
     margin-bottom: 0;
+    color: var(--text-primary);
+    font-size: 0.9rem;
 }
 
 .export-modal-content .export-btn-group {
@@ -596,6 +599,8 @@ a:hover {
     padding: 0.5rem 1rem;
     cursor: pointer;
 }
+
+/* ... (rest of the existing styles) ... */
 
 @media (max-width: 600px) {
     .tabs {
