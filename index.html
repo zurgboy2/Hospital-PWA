@@ -6,6 +6,7 @@
     <title>Medical Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="manifest" href="/hospital-PWA/manifest.json">
     <link rel="stylesheet" href="/hospital-PWA/styles.css">
@@ -176,10 +177,15 @@
                 <div class="backup-section">
                     <h3>Backup and Recovery</h3>
                     <p>Select a directory on your computer where automatic backups will be saved daily.</p>
-                    <button id="selectBackupDirBtn" class="btn-primary">Select Backup Directory</button>
-                    <p class="mt-3">You can also create a manual backup at any time:</p>
-                    <button id="createBackupBtn" class="btn-secondary">Create Backup Now</button>
-                    <p class="mt-3">Remember: Keep your recovery key safe. You'll need it to restore from a backup if you get locked out of your account.</p>
+                    <button id="selectBackupDirBtn" class="btn-secondary">Select Backup Directory</button>
+                    <p>You can also create a manual backup at any time:</p>
+                    <button id="createBackupBtn" class="btn-primary">Create Backup Now</button>
+                    <p>Remember: Keep your recovery key safe. You'll need it to restore from a backup if you get locked out of your account.</p>
+                </div>
+                <div class="export-section">
+                    <h3>Export Data</h3>
+                    <p>Export your data as an Excel file:</p>
+                    <button id="exportDataBtn" class="btn-primary">Export Data as Excel</button>
                 </div>
             </div>
             
@@ -195,5 +201,6 @@
     </div>
     <script type="module" src="/hospital-PWA/main.js"></script>
     <script type="module" src="/hospital-PWA/doctor.js"></script>
+    
 </body>
 </html>

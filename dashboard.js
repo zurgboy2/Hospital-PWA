@@ -4,6 +4,7 @@ import { loadNotes, handleAddNote } from './note.js';
 import { loadArticles } from './article.js';
 import { loadRequests } from './requests.js';
 import { selectBackupDirectory, createBackup, scheduleBackups } from './backup.js';
+import { setupExportDataHandler } from './exportData.js';
 
 export function setupDashboardHandlers() {
     // Existing handlers
@@ -15,6 +16,7 @@ export function setupDashboardHandlers() {
     document.getElementById('createBackupBtn').addEventListener('click', handleCreateBackup);
     document.getElementById('selectBackupDirBtn').addEventListener('click', handleSelectBackupDirectory);
     document.getElementById('createBackupBtn').addEventListener('click', handleCreateBackup);
+    setupExportDataHandler();
 
 
     const today = new Date().toISOString().split('T')[0];

@@ -1,6 +1,7 @@
 import { getCurrentUser, getCurrentKey } from './store.js';
 import { encryptData, decryptData } from './crypto.js';
 import { loadData, saveData } from './dataManager.js';
+import { getDbPromise, STORE_NAME } from './db.js';
 
 let backupDirectory = null;
 
@@ -36,8 +37,21 @@ export async function createBackup() {
     const currentKey = getCurrentKey();
     const data = await loadData(currentUser, currentKey);
     
-    // Encrypt the data using the current key
-    const encryptedBackup = await encryptData(JSON.stringify(data), currentKey);
+    // Filter out personal information
+    const backupData = {
+        healthHistory: data.healthHistory || [],
+        notes: data.notes || [],
+        requests: data.requests || []
+    };
+
+    // Retrieve the recovery key
+    const recoveryKey = await getRecoveryKey(currentUser);
+    if (!recoveryKey) {
+        throw new Error('Recovery key not found. Unable to create backup.');
+    }
+
+    // Encrypt the filtered data using the recovery key
+    const encryptedBackup = await encryptData(JSON.stringify(backupData), recoveryKey);
     const backupContent = JSON.stringify(encryptedBackup);
 
     const filename = `backup_${currentUser}_${new Date().toISOString()}.json`;
@@ -58,6 +72,28 @@ export async function createBackup() {
         // Fallback to download if directory not selected or API not supported
         downloadBackup(backupContent, filename);
     }
+}
+
+// Function to retrieve the recovery key for a user
+async function getRecoveryKey(username) {
+    const db = await getDbPromise();
+    const transaction = db.transaction([STORE_NAME], "readonly");
+    const objectStore = transaction.objectStore(STORE_NAME);
+    
+    return new Promise((resolve, reject) => {
+        const request = objectStore.get(username);
+        
+        request.onsuccess = (event) => {
+            const result = event.target.result;
+            if (result && result.encryptedRecoveryKey) {
+                resolve(result.encryptedRecoveryKey);
+            } else {
+                resolve(null);
+            }
+        };
+        
+        request.onerror = () => reject(new Error('Failed to retrieve recovery key.'));
+    });
 }
 
 // Function to download backup as a file
@@ -97,8 +133,21 @@ export async function restoreFromFile(file, recoveryKey) {
                 const encryptedBackup = JSON.parse(event.target.result);
                 const decryptedData = await decryptData(encryptedBackup, recoveryKey);
                 const restoredData = JSON.parse(decryptedData);
-                await saveData(restoredData.username, restoredData, recoveryKey);
-                resolve(restoredData.username);
+                
+                // Merge the restored data with existing user data
+                const currentUser = getCurrentUser();
+                const currentKey = getCurrentKey();
+                const existingData = await loadData(currentUser, currentKey) || {};
+                
+                const mergedData = {
+                    ...existingData,
+                    healthHistory: restoredData.healthHistory || existingData.healthHistory || [],
+                    notes: restoredData.notes || existingData.notes || [],
+                    requests: restoredData.requests || existingData.requests || []
+                };
+
+                await saveData(currentUser, mergedData, currentKey);
+                resolve(currentUser);
             } catch (error) {
                 reject(new Error('Failed to restore from backup: ' + error.message));
             }

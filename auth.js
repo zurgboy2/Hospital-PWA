@@ -123,11 +123,34 @@ function showRecoveryKey(recoveryKey, callback) {
     modal.style.display = 'block'; // Explicitly set display to block
     modal.innerHTML = `
         <div class="modal-content">
-            <h2>Account Created Successfully</h2>
-            <p>Your recovery key is:</p>
+            <h2>Welcome to Your New Account!</h2>
+            <h3>Important Things to Know</h3>
+            <p>This app works only on this computer and this web browser. It's like a digital notebook that only you can see.</p>
+            <p><strong>Please read this information carefully:</strong></p>
+            <ul>
+                <li>Your information is only saved on this computer. It's not shared with anyone else.</li>
+                <li>Always use the same web browser (like Chrome, Firefox, or Safari) to open this app.</li>
+                <li>If you forget your password, you'll need a special code to get your information back.</li>
+                <li>It's a good idea to save your information regularly, just in case.</li>
+            </ul>
+            <h3>Your Special Recovery Code</h3>
+            <p>Here's your special recovery code:</p>
             <p class="recovery-key">${recoveryKey}</p>
-            <p>Please save this key in a secure location. You will need it to recover your account if you forget your password.</p>
-            <button id="closeModal" class="btn-primary">I've Saved My Recovery Key</button>
+            <p><strong>Very Important:</strong> Write down this code and keep it somewhere safe, like in a drawer at home. You'll need it if you ever forget your password.</p>
+            <h3>How to Use This App</h3>
+            <ol>
+                <li>Always use the same web browser to open this app.</li>
+                <li>Regularly save your information using the "Save" or "Backup" button you'll see when you use the app.</li>
+                <li>If you forget your password:
+                    <ul>
+                        <li>You'll need to create a new account</li>
+                        <li>Then, use your special recovery code to get your old information back</li>
+                        <li>You'll also need the last save or "backup" you made</li>
+                    </ul>
+                </li>
+                <li>Remember, keeping your password and recovery code safe is very important. Don't share them with anyone.</li>
+            </ol>
+            <button id="closeModal" class="btn-primary">I've Read This and I'm Ready to Start</button>
         </div>
     `;
     document.body.appendChild(modal);
