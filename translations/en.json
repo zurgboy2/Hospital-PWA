@@ -1,0 +1,98 @@
+{
+    "en": {
+      "login": "Login",
+      "username": "Username",
+      "password": "Password",
+      "createAccount": "Create Account",
+      "dontHaveAccount": "Don't have an account?",
+      "alreadyHaveAccount": "Already have an account?",
+      "forgotPassword": "Forgot Password?",
+      "loginButton": "Login",
+      "signUpButton": "Sign Up",
+  
+      "dashboardTitle": "Patient Dashboard",
+      "doctorAccess": "Doctor Access",
+      "patientAccess": "Patient Access",
+  
+      "personalInfo": "Personal Information",
+      "fullName": "Full Name",
+      "age": "Age",
+      "height": "Height (cm)",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "preferNotToSay": "Prefer not to say",
+      "savePersonalInfo": "Save Personal Info",
+  
+      "notes": "Secure Notes",
+      "addNewNote": "Add New Note",
+      "editNote": "Edit Note",
+      "deleteNote": "Delete Note",
+      "confirmDeleteNote": "Are you sure you want to delete this note?",
+  
+      "healthTracker": "Daily Health Tracker",
+      "date": "Date",
+      "waterIntake": "Water Intake (ml)",
+      "colostomyOutput": "Colostomy Bag Output (ml)",
+      "painLevel": "Pain Level",
+      "noPain": "No Pain",
+      "mildPain": "Mild",
+      "moderatePain": "Moderate",
+      "severePain": "Severe",
+      "verySeverePain": "Very Severe",
+      "worstPossiblePain": "Worst Possible Pain",
+      "saveHealthData": "Save Health Data",
+      "healthDataHistory": "Health Data History",
+  
+      "dataRequests": "Data Requests",
+      "acceptRequest": "Accept",
+      "declineRequest": "Decline",
+      "confirmDataSharing": "Are you sure you want to share the requested data?",
+      "dataSharingMessage": "Enter a message for the healthcare provider (optional):",
+  
+      "settings": "Settings",
+      "backupAndRecovery": "Backup and Recovery",
+      "selectBackupDirectory": "Select Backup Directory",
+      "createBackup": "Create Backup Now",
+      "backupReminder": "Remember: Keep your recovery key safe. You'll need it to restore from a backup if you get locked out of your account.",
+      "exportData": "Export Data",
+      "exportDataAsExcel": "Export Data as Excel",
+      "language": "Language",
+  
+      "logout": "Logout",
+  
+      "articles": "Latest Articles",
+      "readMore": "Read more",
+  
+      "errorMessages": {
+        "loginFailed": "Login failed. Please check your credentials and try again.",
+        "accountCreationFailed": "Failed to create account. Please try again.",
+        "personalInfoSaveFailed": "Failed to save personal information. Please try again.",
+        "noteAddFailed": "Failed to add note. Please try again.",
+        "noteEditFailed": "Failed to edit note. Please try again.",
+        "noteDeleteFailed": "Failed to delete note. Please try again.",
+        "healthDataSaveFailed": "Failed to save health data. Please try again.",
+        "dataExportFailed": "Failed to export data. Please try again.",
+        "backupFailed": "Failed to create backup. Please try again.",
+        "restoreFailed": "Failed to restore from backup. Please check your recovery key and try again.",
+        "requestActionFailed": "Failed to process request. Please try again.",
+        "networkError": "Network error. Please check your connection and try again."
+      },
+  
+      "successMessages": {
+        "loginSuccessful": "Login successful!",
+        "accountCreated": "Account created successfully!",
+        "personalInfoSaved": "Personal information saved successfully!",
+        "noteAdded": "Note added successfully!",
+        "noteEdited": "Note edited successfully!",
+        "noteDeleted": "Note deleted successfully!",
+        "healthDataSaved": "Health data saved successfully!",
+        "dataExported": "Data exported successfully!",
+        "backupCreated": "Backup created successfully!",
+        "restoreSuccessful": "Data restored successfully!",
+        "requestAccepted": "Request accepted successfully!",
+        "requestDeclined": "Request declined successfully!"
+      }
+    }
+}

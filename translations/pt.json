@@ -1,0 +1,98 @@
+{
+    "pt": {
+    "login": "Iniciar Sessão",
+    "username": "Nome de Utilizador",
+    "password": "Palavra-passe",
+    "createAccount": "Criar Conta",
+    "dontHaveAccount": "Não tem uma conta?",
+    "alreadyHaveAccount": "Já tem uma conta?",
+    "forgotPassword": "Esqueceu-se da palavra-passe?",
+    "loginButton": "Entrar",
+    "signUpButton": "Registar",
+
+    "dashboardTitle": "Painel do Paciente",
+    "doctorAccess": "Acesso do Médico",
+    "patientAccess": "Acesso do Paciente",
+
+    "personalInfo": "Informação Pessoal",
+    "fullName": "Nome Completo",
+    "age": "Idade",
+    "height": "Altura (cm)",
+    "gender": "Género",
+    "male": "Masculino",
+    "female": "Feminino",
+    "other": "Outro",
+    "preferNotToSay": "Prefiro não dizer",
+    "savePersonalInfo": "Guardar Informação Pessoal",
+
+    "notes": "Notas Seguras",
+    "addNewNote": "Adicionar Nova Nota",
+    "editNote": "Editar Nota",
+    "deleteNote": "Apagar Nota",
+    "confirmDeleteNote": "Tem a certeza que quer apagar esta nota?",
+
+    "healthTracker": "Registo Diário de Saúde",
+    "date": "Data",
+    "waterIntake": "Ingestão de Água (ml)",
+    "colostomyOutput": "Saída da Bolsa de Colostomia (ml)",
+    "painLevel": "Nível de Dor",
+    "noPain": "Sem Dor",
+    "mildPain": "Leve",
+    "moderatePain": "Moderada",
+    "severePain": "Severa",
+    "verySeverePain": "Muito Severa",
+    "worstPossiblePain": "Pior Dor Possível",
+    "saveHealthData": "Guardar Dados de Saúde",
+    "healthDataHistory": "Histórico de Dados de Saúde",
+
+    "dataRequests": "Pedidos de Dados",
+    "acceptRequest": "Aceitar",
+    "declineRequest": "Recusar",
+    "confirmDataSharing": "Tem a certeza que quer partilhar os dados solicitados?",
+    "dataSharingMessage": "Introduza uma mensagem para o profissional de saúde (opcional):",
+
+    "settings": "Definições",
+    "backupAndRecovery": "Cópia de Segurança e Recuperação",
+    "selectBackupDirectory": "Selecionar Diretório de Cópia de Segurança",
+    "createBackup": "Criar Cópia de Segurança Agora",
+    "backupReminder": "Lembre-se: Guarde a sua chave de recuperação em segurança. Vai precisar dela para restaurar a partir de uma cópia de segurança se ficar bloqueado da sua conta.",
+    "exportData": "Exportar Dados",
+    "exportDataAsExcel": "Exportar Dados como Excel",
+    "language": "Idioma",
+
+    "logout": "Terminar Sessão",
+
+    "articles": "Artigos Mais Recentes",
+    "readMore": "Ler mais",
+
+    "errorMessages": {
+      "loginFailed": "Falha no início de sessão. Por favor, verifique as suas credenciais e tente novamente.",
+      "accountCreationFailed": "Falha na criação da conta. Por favor, tente novamente.",
+      "personalInfoSaveFailed": "Falha ao guardar a informação pessoal. Por favor, tente novamente.",
+      "noteAddFailed": "Falha ao adicionar nota. Por favor, tente novamente.",
+      "noteEditFailed": "Falha ao editar nota. Por favor, tente novamente.",
+      "noteDeleteFailed": "Falha ao apagar nota. Por favor, tente novamente.",
+      "healthDataSaveFailed": "Falha ao guardar dados de saúde. Por favor, tente novamente.",
+      "dataExportFailed": "Falha ao exportar dados. Por favor, tente novamente.",
+      "backupFailed": "Falha ao criar cópia de segurança. Por favor, tente novamente.",
+      "restoreFailed": "Falha ao restaurar a partir da cópia de segurança. Por favor, verifique a sua chave de recuperação e tente novamente.",
+      "requestActionFailed": "Falha ao processar pedido. Por favor, tente novamente.",
+      "networkError": "Erro de rede. Por favor, verifique a sua conexão e tente novamente."
+    },
+
+    "successMessages": {
+      "loginSuccessful": "Início de sessão bem-sucedido!",
+      "accountCreated": "Conta criada com sucesso!",
+      "personalInfoSaved": "Informação pessoal guardada com sucesso!",
+      "noteAdded": "Nota adicionada com sucesso!",
+      "noteEdited": "Nota editada com sucesso!",
+      "noteDeleted": "Nota apagada com sucesso!",
+      "healthDataSaved": "Dados de saúde guardados com sucesso!",
+      "dataExported": "Dados exportados com sucesso!",
+      "backupCreated": "Cópia de segurança criada com sucesso!",
+      "restoreSuccessful": "Dados restaurados com sucesso!",
+      "requestAccepted": "Pedido aceite com sucesso!",
+      "requestDeclined": "Pedido recusado com sucesso!"
+    }
+  }
+}

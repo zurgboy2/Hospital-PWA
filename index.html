@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Dashboard</title>
+    <title data-i18n="dashboardTitle">Patient Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
@@ -18,28 +18,28 @@
 <body>
     <div class="container">
         <header>
-            <h1 id="dashboardTitle">Patient Dashboard</h1>
-            <button id="accessToggleBtn">Doctor Access</button>
+            <h1 id="dashboardTitle" data-i18n="dashboardTitle">Patient Dashboard</h1>
+            <button id="accessToggleBtn" data-i18n="doctorAccess">Doctor Access</button>
         </header>
 
         <div id="loginSection" class="card centered">
-            <h2 id="authHeader">Login</h2>
+            <h2 id="authHeader" data-i18n="login">Login</h2>
             <form id="loginForm">
                 <div class="input-group">
                     <input type="text" id="username" required>
-                    <label for="username">Username</label>
+                    <label for="username" data-i18n="username">Username</label>
                 </div>
                 <div class="input-group">
                     <input type="password" id="password" required>
-                    <label for="password">Password</label>
+                    <label for="password" data-i18n="password">Password</label>
                 </div>
                 <button type="submit" id="loginButton" class="btn-primary">
-                    <i class="fas fa-sign-in-alt"></i> Login
+                    <i class="fas fa-sign-in-alt" data-i18n="loginButton"></i> Login
                 </button>
             </form>
             <p class="text-center">
-                <span id="authDescription">Don't have an account? </span>
-                <a href="#" id="createAccountLink">Create one</a>
+                <span id="authDescription" data-i18n="dontHaveAccount">Don't have an account? </span>
+                <a href="#" id="createAccountLink" >Create one</a>
             </p>
         </div>
 
@@ -48,15 +48,17 @@
             <form id="doctorLoginForm">
                 <div class="input-group">
                     <input type="text" id="doctorUsername" required>
-                    <label for="doctorUsername">Username</label>
+                    <label for="doctorUsername" data-i18n="username">Username</label>
                 </div>
                 <div class="input-group">
                     <input type="password" id="doctorPassword" required>
-                    <label for="doctorPassword">Password</label>
+                    <label for="doctorPassword" data-i18n="password">Password</label>
                 </div>
-                <button type="submit" class="btn-primary">Login</button>
+                <button type="submit" class="btn-primary" data-i18n="loginButton">Login</button>
             </form>
-            <p class="text-center">Don't have an account? <a href="#" id="doctorCreateAccountLink">Create one</a></p>
+            <p class="text-center" data-i18n="dontHaveAccount">Don't have an account? 
+                <a href="#" id="doctorCreateAccountLink">Create one</a>
+            </p>
         </div>
 
         <div id="doctorSignupSection" class="card centered" style="display:none;">
@@ -64,11 +66,11 @@
             <form id="doctorSignupForm">
                 <div class="input-group">
                     <input type="text" id="doctorSignupUsername" required>
-                    <label for="doctorSignupUsername">Username</label>
+                    <label for="doctorSignupUsername" data-i18n="username">>Username</label>
                 </div>
                 <div class="input-group">
                     <input type="password" id="doctorSignupPassword" required>
-                    <label for="doctorSignupPassword">Password</label>
+                    <label for="doctorSignupPassword" data-i18n="password">Password</label>
                 </div>
                 <div class="input-group">
                     <input type="text" id="doctorLicenseNumber" required>
@@ -78,9 +80,9 @@
                     <input type="email" id="doctorEmail" required>
                     <label for="doctorEmail">Email</label>
                 </div>
-                <button type="submit" class="btn-primary">Sign Up</button>
+                <button type="submit" class="btn-primary" data-i18n="signUpButton">Sign Up</button>
             </form>
-            <p class="text-center">Already have an account? <a href="#" id="doctorLoginLink">Login</a></p>
+            <p class="text-center"data-i18n="alreadyHaveAccount">Already have an account? <a href="#" id="doctorLoginLink">Login</a></p>
         </div>
 
         <div id="dashboardSection" class="card" style="display:none;">
@@ -94,81 +96,81 @@
             </div>
 
             <div id="infoTab" class="tab-content active">
-                <h2>Latest Articles</h2>
+                <h2 data-i18n="articles">Latest Articles</h2>
                 <div id="articlesList">
                     <!-- Articles will be dynamically loaded here -->
                 </div>
             </div>
 
             <div id="personalTab" class="tab-content">
-                <h2>Personal Information</h2>
+                <h2 data-i18n="personalInfo">Personal Information</h2>
                 <form id="personalInfoForm">
                     <div class="input-group">
                         <input type="text" id="name" required>
-                        <label for="name">Full Name</label>
+                        <label for="name" data-i18n="fullName">Full Name</label>
                     </div>
                     <div class="input-group">
                         <input type="number" id="age" required>
-                        <label for="age">Age</label>
+                        <label for="age" data-i18n="age">Age</label>
                     </div>
                     <div class="input-group">
                         <input type="number" id="height" required>
-                        <label for="height">Height (cm)</label>
+                        <label for="height" data-i18n="height">Height (cm)</label>
                     </div>
                     <div class="input-group">
                         <input type="text" id="gender" required>
-                        <label for="gender">Gender</label>
+                        <label for="gender" data-i18n="gender">Gender</label>
                     </div>
-                    <button type="submit" class="btn-primary">Save Personal Info</button>
+                    <button type="submit" class="btn-primary" data-i18n="preferNotToSay">Save Personal Info</button>
                 </form>
             </div>
 
             <div id="notesTab" class="tab-content">
-                <h2>Secure Notes</h2>
+                <h2 data-i18n="notes">Secure Notes</h2>
                 <div id="notesList"></div>
-                <button id="addNoteBtn" class="btn-secondary">Add New Note</button>
+                <button id="addNoteBtn" class="btn-secondary" data-i18n="addNewNote">Add New Note</button>
             </div>
 
             <div id="healthTab" class="tab-content">
-                <h2>Daily Health Tracker</h2>
+                <h2 data-i18n="healthTracker">Daily Health Tracker</h2>
                 <form id="healthTrackerForm">
                     <div class="input-group">
                         <input type="date" id="healthDate" required>
-                        <label for="healthDate">Date</label>
+                        <label for="healthDate" data-i18n="date">Date</label>
                     </div>
                     <div class="input-group">
                         <input type="number" id="waterIntake" required>
-                        <label for="waterIntake">Water Intake (ml)</label>
+                        <label for="waterIntake" data-i18n="waterIntake">Water Intake (ml)</label>
                     </div>
                     <div class="input-group">
                         <input type="number" id="colostomyOutput" required>
-                        <label for="colostomyOutput">Colostomy Bag Output (ml)</label>
+                        <label for="colostomyOutput" data-i18n="colostomyOutput">Colostomy Bag Output (ml)</label>
                     </div>
                     <div class="input-group">
                         <select id="painLevel" required>
                             <option value="">Select pain level</option>
-                            <option value="0">0 - No Pain</option>
-                            <option value="1">1 - Mild</option>
-                            <option value="2">2 - Moderate</option>
-                            <option value="3">3 - Severe</option>
-                            <option value="4">4 - Very Severe</option>
-                            <option value="5">5 - Worst Possible Pain</option>
+                            <option value="0" data-i18n="noPain">0 - No Pain</option>
+                            <option value="1" data-i18n="mildPain">1 - Mild</option>
+                            <option value="2" data-i18n="moderatePain">2 - Moderate</option>
+                            <option value="3" data-i18n="severePain">3 - Severe</option>
+                            <option value="4" data-i18n="verySeverePain">4 - Very Severe</option>
+                            <option value="5" data-i18n="worstPossiblePain">5 - Worst Possible Pain</option>
                         </select>
-                        <label for="painLevel">Pain Level</label>
+                        <label for="painLevel" data-i18n="painLevel">Pain Level</label>
                     </div>
-                    <button type="submit" class="btn-primary">Save Health Data</button>
+                    <button type="submit" class="btn-primary" data-i18n="saveHealthData">Save Health Data</button>
                 </form>
         
                 <div id="healthChartContainer">
                     <canvas id="healthChart"></canvas>
                 </div>
         
-                <h3>Health Data History</h3>
+                <h3 data-i18n="healthDataHistory">Health Data History</h3>
                 <div id="healthDataList"></div>
             </div>
 
             <div id="requestsTab" class="tab-content">
-                <h2>Data Requests</h2>
+                <h2 data-i18n="dataRequests">Data Requests</h2>
                 <div id="requestsList"></div>
             </div>
 
@@ -186,6 +188,13 @@
                     <h3>Export Data</h3>
                     <p>Export your data as an Excel file:</p>
                     <button id="exportDataBtn" class="btn-primary">Export Data as Excel</button>
+                </div>
+                <div class="language-selector">
+                    <label for="languageSelect" data-i18n="language">Language</label>
+                    <select id="languageSelect">
+                      <option value="en">English</option>
+                      <option value="pt">Português</option>
+                    </select>
                 </div>
             </div>
             
