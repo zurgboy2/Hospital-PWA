@@ -97,6 +97,7 @@ export function handleLogout() {
     if (accessToggleBtn) {
         accessToggleBtn.style.display = 'block';
     }
+    document.querySelector('.language-selector').style.display = 'block';
 
 }
 
@@ -121,6 +122,7 @@ async function handleLogin(e) {
         if (accessToggleBtn) {
             accessToggleBtn.style.display = 'none';
         }
+        document.querySelector('.language-selector').style.display = 'none';
 
         loadDashboard();
     } catch (error) {
