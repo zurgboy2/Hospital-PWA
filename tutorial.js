@@ -119,14 +119,24 @@ class TutorialSystem {
 
   startLoginTutorial() {
     this.currentStep = 0;
-    this.showStep(this.tutorialSteps.login[this.currentStep]);
+    if (this.tutorialSteps.login && this.tutorialSteps.login.length > 0) {
+      this.showStep(this.tutorialSteps.login[this.currentStep]);
+    } else {
+      console.error('Login tutorial steps are not defined or empty');
+    }
   }
 
   startDashboardTutorial() {
     const activeTab = this.getActiveTab();
-    if (activeTab && this.tutorialSteps.dashboard[activeTab]) {
+    if (activeTab && this.tutorialSteps.dashboard && this.tutorialSteps.dashboard[activeTab]) {
       this.currentStep = 0;
-      this.showStep(this.tutorialSteps.dashboard[activeTab][this.currentStep]);
+      if (this.tutorialSteps.dashboard[activeTab].length > 0) {
+        this.showStep(this.tutorialSteps.dashboard[activeTab][this.currentStep]);
+      } else {
+        console.error(`No tutorial steps defined for the "${activeTab}" tab`);
+      }
+    } else {
+      console.error('No active tab found or tutorial steps not defined for the active tab');
     }
   }
 
@@ -136,6 +146,11 @@ class TutorialSystem {
   }
 
   showStep(step) {
+    if (!step) {
+      console.error('Invalid tutorial step');
+      return;
+    }
+
     const target = document.querySelector(step.target);
     if (!target) {
       console.error(`Target element not found: ${step.target}`);
@@ -196,7 +211,7 @@ class TutorialSystem {
 
   nextStep() {
     const currentSteps = this.isLoginVisible() ? this.tutorialSteps.login : this.tutorialSteps.dashboard[this.getActiveTab()];
-    if (this.currentStep < currentSteps.length - 1) {
+    if (currentSteps && this.currentStep < currentSteps.length - 1) {
       this.currentStep++;
       document.querySelector('.tutorial-overlay').remove();
       this.showStep(currentSteps[this.currentStep]);
@@ -206,16 +221,19 @@ class TutorialSystem {
   }
 
   prevStep() {
-    if (this.currentStep > 0) {
+    const currentSteps = this.isLoginVisible() ? this.tutorialSteps.login : this.tutorialSteps.dashboard[this.getActiveTab()];
+    if (currentSteps && this.currentStep > 0) {
       this.currentStep--;
       document.querySelector('.tutorial-overlay').remove();
-      const currentSteps = this.isLoginVisible() ? this.tutorialSteps.login : this.tutorialSteps.dashboard[this.getActiveTab()];
       this.showStep(currentSteps[this.currentStep]);
     }
   }
 
   endTutorial() {
-    document.querySelector('.tutorial-overlay').remove();
+    const overlay = document.querySelector('.tutorial-overlay');
+    if (overlay) {
+      overlay.remove();
+    }
   }
 }
 
@@ -223,13 +241,20 @@ class TutorialSystem {
 const tutorial = new TutorialSystem();
 
 // Add event listener to start the tutorial
-document.getElementById('tutorialButton').addEventListener('click', () => tutorial.start());
+document.addEventListener('DOMContentLoaded', () => {
+  const tutorialButton = document.getElementById('tutorialButton');
+  if (tutorialButton) {
+    tutorialButton.addEventListener('click', () => tutorial.start());
+  } else {
+    console.error('Tutorial button not found');
+  }
 
-// Listen for tab changes to update the tutorial
-document.querySelectorAll('.tab-button').forEach(button => {
-  button.addEventListener('click', () => {
-    if (document.querySelector('.tutorial-overlay')) {
-      tutorial.startDashboardTutorial();
-    }
+  // Listen for tab changes to update the tutorial
+  document.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', () => {
+      if (document.querySelector('.tutorial-overlay')) {
+        tutorial.startDashboardTutorial();
+      }
+    });
   });
 });
