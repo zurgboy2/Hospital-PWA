@@ -54,6 +54,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const headerNav = document.querySelector('.header-nav');
+
+    mobileMenuToggle.addEventListener('click', function() {
+        headerNav.classList.toggle('show');
+    });
+
     function updatePageContent() {
         // Update all translatable elements
         document.querySelectorAll('[data-i18n]').forEach(element => {
