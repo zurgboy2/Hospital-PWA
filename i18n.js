@@ -3,7 +3,7 @@ let translations = {};
 
 export async function loadTranslations(lang) {
   try {
-    const response = await fetch(`hospital-PWA/translations/${lang}.json`);
+    const response = await fetch(`translations/${lang}.json`);
     translations = await response.json();
     currentLanguage = lang;
     document.documentElement.lang = lang;
