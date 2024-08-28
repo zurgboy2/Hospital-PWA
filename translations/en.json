@@ -11,6 +11,7 @@
   "createOne": "Create one",
 
   "dashboardTitle": "Patient Dashboard",
+  "doctorDashboard": "Doctor Dashboard",
   "doctorAccess": "Doctor Access",
   "patientAccess": "Patient Access",
   "doctorLogin": "Doctor Login",

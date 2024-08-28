@@ -11,6 +11,7 @@
   "createOne": "Criar uma",
 
   "dashboardTitle": "Painel do Paciente",
+  "doctorDashboard": "Painel do Médico",
   "doctorAccess": "Acesso do Médico",
   "patientAccess": "Acesso do Paciente",
   "doctorLogin": "Login do Médico",  
