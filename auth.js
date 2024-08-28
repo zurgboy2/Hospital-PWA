@@ -93,6 +93,11 @@ export function handleLogout() {
     isCreatingAccount = false;
     document.getElementById('loginButton').innerHTML = `<i class="fas fa-sign-in-alt"></i> ${__('login')}`;
     document.getElementById('createAccountLink').textContent = __('createOne');
+    const accessToggleBtn = document.getElementById('accessToggleBtn');
+    if (accessToggleBtn) {
+        accessToggleBtn.style.display = 'none';
+    }
+
 }
 
 async function handleLogin(e) {
@@ -112,6 +117,11 @@ async function handleLogin(e) {
         setCurrentKey(result.key);
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('dashboardSection').style.display = 'block';
+        const accessToggleBtn = document.getElementById('accessToggleBtn');
+        if (accessToggleBtn) {
+            accessToggleBtn.style.display = 'none';
+        }
+
         loadDashboard();
     } catch (error) {
         alert(error.message);
@@ -186,7 +196,7 @@ function toggleAccountCreation(e) {
         usernameLabel.textContent = __('username');
         passwordLabel.textContent = __('password');
     }
-    
+
     // Clear input fields when toggling
     document.getElementById('username').value = '';
     document.getElementById('password').value = '';

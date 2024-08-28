@@ -65,6 +65,12 @@
 "noArticlesAvailable": "Não há artigos disponíveis no momento.",
 "readMore": "Ler mais",
 
+"info": "Informação",
+"personl": "Pessoal",
+"note": "Notas",
+"health": "Saúde",
+"requests": "Pedidos",
+
 "usernamePasswordRequirements": "O nome de utilizador deve ter pelo menos 4 caracteres e a palavra-passe pelo menos 12 caracteres.",
 "createOne": "Criar uma",
 "welcomeNewAccount": "Bem-vindo à Sua Nova Conta!",
