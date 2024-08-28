@@ -9,8 +9,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     await initDB();
     const userLang = navigator.language || navigator.userLanguage;
     const initialLang = userLang.startsWith('pt') ? 'pt' : 'en';
-    document.getElementById('languageSelect').value = initialLang;
-    loadTranslations(initialLang);
+    
+    // Load initial translations
+    await loadTranslations(initialLang);
+    
+    // Set language select value after translations are loaded
+    const languageSelect = document.getElementById('languageSelect');
+    if (languageSelect) {
+        languageSelect.value = initialLang;
+    }
     setupAuthHandlers();
     setupDashboardHandlers();
     registerServiceWorker();
