@@ -1,5 +1,3 @@
-// File: js/i18n.js
-
 let currentLanguage = 'en';
 let translations = {};
 
@@ -34,8 +32,3 @@ function updatePageContent() {
     }
   });
 }
-
-// Usage in main.js or another appropriate file
-document.addEventListener('DOMContentLoaded', () => {
-  loadTranslations('en'); // Or whatever the default language should be
-});
