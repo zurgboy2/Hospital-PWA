@@ -195,6 +195,7 @@ header {
     background-color: var(--primary-color);
     color: var(--surface-color);
     padding: 10px;
+    position: relative;
 }
 
 .header-container {
@@ -210,11 +211,6 @@ header {
 #dashboardTitle {
     margin: 0;
     font-size: 1.5rem;
-}
-
-.header-controls {
-    display: flex;
-    align-items: center;
 }
 
 .header-nav {
@@ -242,7 +238,6 @@ header {
 
 .menu-icon-container {
     display: none;
-    margin-left: 10px;
 }
 
 #mobileMenuToggle {
@@ -793,6 +788,7 @@ a:hover {
         flex-direction: column;
         align-items: stretch;
         padding: 10px;
+        z-index: 1000;
     }
 
     .header-nav.show {
