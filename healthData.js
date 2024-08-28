@@ -1,5 +1,6 @@
 import { getCurrentUser, getCurrentKey } from './store.js';
 import { loadData, saveData } from './dataManager.js';
+import { __ } from './i18n.js';  // Import the translation function
 
 export let healthChart;
 
@@ -21,21 +22,18 @@ export async function handleHealthDataSubmit(e) {
         const existingEntryIndex = healthHistory.findIndex(entry => entry.date === date);
         
         if (existingEntryIndex !== -1) {
-            // Update existing entry
             healthHistory[existingEntryIndex] = healthData;
         } else {
-            // Add new entry
             healthHistory.push(healthData);
         }
         
-        // Sort entries by date, most recent first
         healthHistory.sort((a, b) => new Date(b.date) - new Date(a.date));
         
         await saveData(currentUser, { ...data, healthHistory }, currentKey);
-        alert('Health data saved successfully!');
+        alert(__('successMessages.healthDataSaved'));
         await loadHealthData();
     } catch (error) {
-        alert('Failed to save health data: ' + error.message);
+        alert(__('errorMessages.healthDataSaveFailed') + ': ' + error.message);
     }
 }
 
@@ -48,14 +46,12 @@ export async function loadHealthData() {
         populateHealthDataList(healthHistory);
         updateHealthChart(healthHistory);
     } catch (error) {
-        console.error('Failed to load health data:', error);
+        console.error(__('errorMessages.healthDataSaveFailed'), error);
     }
 }
 
 export function updateHealthChart(healthHistory) {
     const ctx = document.getElementById('healthChart').getContext('2d');
-    const currentUser = getCurrentUser();
-    const currentKey = getCurrentKey();
     
     if (healthChart) {
         healthChart.destroy();
@@ -67,19 +63,19 @@ export function updateHealthChart(healthHistory) {
             labels: healthHistory.map(entry => entry.date).reverse(),
             datasets: [
                 {
-                    label: 'Water Intake (ml)',
+                    label: __('waterIntake'),
                     data: healthHistory.map(entry => entry.waterIntake).reverse(),
                     borderColor: 'rgba(75, 192, 192, 1)',
                     tension: 0.1
                 },
                 {
-                    label: 'Colostomy Output (ml)',
+                    label: __('colostomyOutput'),
                     data: healthHistory.map(entry => entry.colostomyOutput).reverse(),
                     borderColor: 'rgba(255, 99, 132, 1)',
                     tension: 0.1
                 },
                 {
-                    label: 'Pain Level',
+                    label: __('painLevel'),
                     data: healthHistory.map(entry => entry.painLevel).reverse(),
                     borderColor: 'rgba(255, 206, 86, 1)',
                     tension: 0.1
@@ -99,15 +95,13 @@ export function updateHealthChart(healthHistory) {
 
 export function populateHealthDataList(healthHistory) {
     const healthDataList = document.getElementById('healthDataList');
-    const currentUser = getCurrentUser();
-    const currentKey = getCurrentKey();
     healthDataList.innerHTML = healthHistory.map(entry => `
         <div class="health-entry">
             <div class="health-entry-content">
-                <span class="health-data-item"><strong>Date:</strong> ${entry.date}</span>
-                <span class="health-data-item"><strong>Water:</strong> ${entry.waterIntake} ml</span>
-                <span class="health-data-item"><strong>Output:</strong> ${entry.colostomyOutput} ml</span>
-                <span class="health-data-item"><strong>Pain:</strong> ${entry.painLevel}</span>
+                <span class="health-data-item"><strong>${__('date')}:</strong> ${entry.date}</span>
+                <span class="health-data-item"><strong>${__('waterIntake')}:</strong> ${entry.waterIntake} ml</span>
+                <span class="health-data-item"><strong>${__('colostomyOutput')}:</strong> ${entry.colostomyOutput} ml</span>
+                <span class="health-data-item"><strong>${__('painLevel')}:</strong> ${entry.painLevel}</span>
             </div>
             <button class="btn-icon btn-edit" onclick="editHealthEntry('${entry.date}')">
                 <i class="fas fa-edit"></i>
@@ -130,6 +124,6 @@ export async function editHealthEntry(date) {
             document.getElementById('painLevel').value = entry.painLevel;
         }
     } catch (error) {
-        console.error('Failed to edit health entry:', error);
+        console.error(__('errorMessages.healthDataSaveFailed'), error);
     }
 }

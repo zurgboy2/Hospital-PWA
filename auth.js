@@ -95,7 +95,7 @@ export function handleLogout() {
     document.getElementById('createAccountLink').textContent = __('createOne');
     const accessToggleBtn = document.getElementById('accessToggleBtn');
     if (accessToggleBtn) {
-        accessToggleBtn.style.display = 'none';
+        accessToggleBtn.style.display = 'block';
     }
 
 }

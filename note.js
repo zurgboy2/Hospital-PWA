@@ -1,8 +1,9 @@
 import { getCurrentUser, getCurrentKey } from './store.js';
 import { loadData, saveData } from './dataManager.js';
+import { __ } from './i18n.js';  // Import the translation function
 
 export async function handleAddNote() {
-    const noteText = prompt('Enter your note:');
+    const noteText = prompt(__('enterYourNote'));
     const currentUser = getCurrentUser();
     const currentKey = getCurrentKey();
     if (noteText) {
@@ -13,7 +14,7 @@ export async function handleAddNote() {
             await saveData(currentUser, { ...data, notes }, currentKey);
             loadNotes();
         } catch (error) {
-            alert('Failed to add note: ' + error.message);
+            alert(__('errorMessages.noteAddFailed') + ': ' + error.message);
         }
     }
 }
@@ -28,14 +29,14 @@ export async function loadNotes() {
             <div class="note-item">
                 <p>${note.text}</p>
                 <div class="note-actions">
-                    <button onclick="editNote(${note.id})">Edit</button>
-                    <button onclick="deleteNote(${note.id})">Delete</button>
+                    <button onclick="editNote(${note.id})">${__('editNote')}</button>
+                    <button onclick="deleteNote(${note.id})">${__('deleteNote')}</button>
                 </div>
             </div>
         `).join('');
         document.getElementById('notesList').innerHTML = notesHtml;
     } catch (error) {
-        console.error('Failed to load notes:', error);
+        console.error(__('errorMessages.noteLoadFailed'), error);
     }
 }
 
@@ -46,7 +47,7 @@ export async function editNote(noteId) {
         const data = await loadData(currentUser, currentKey);
         const note = data.notes.find(n => n.id === noteId);
         if (note) {
-            const newText = prompt('Edit your note:', note.text);
+            const newText = prompt(__('editYourNote'), note.text);
             if (newText !== null) {
                 note.text = newText;
                 await saveData(currentUser, data, currentKey);
@@ -54,21 +55,21 @@ export async function editNote(noteId) {
             }
         }
     } catch (error) {
-        alert('Failed to edit note: ' + error.message);
+        alert(__('errorMessages.noteEditFailed') + ': ' + error.message);
     }
 }
 
 export async function deleteNote(noteId) {
     const currentUser = getCurrentUser();
     const currentKey = getCurrentKey();
-    if (confirm('Are you sure you want to delete this note?')) {
+    if (confirm(__('confirmDeleteNote'))) {
         try {
             const data = await loadData(currentUser, currentKey);
             data.notes = data.notes.filter(n => n.id !== noteId);
             await saveData(currentUser, data, currentKey);
             loadNotes();
         } catch (error) {
-            alert('Failed to delete note: ' + error.message);
+            alert(__('errorMessages.noteDeleteFailed') + ': ' + error.message);
         }
     }
 }

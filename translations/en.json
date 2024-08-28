@@ -32,12 +32,15 @@
   "editNote": "Edit Note",
   "deleteNote": "Delete Note",
   "confirmDeleteNote": "Are you sure you want to delete this note?",
+  "enterYourNote": "Enter your note:",
+  "editYourNote": "Edit your note:",
 
   "info": "Info",
-  "personl":"Personal",
+  "personal":"Personal",
   "note":"Notes",
   "health":"Health",
   "requests":"Requests",
+  "selectGender": "Select Gender",
 
   "healthTracker": "Daily Health Tracker",
   "date": "Date",
@@ -105,12 +108,46 @@
   "choosePassword": "Choose a Password",
   "noAccount": "Don't have an account?",
 
+
+  "browserNotSupportDirectorySelection": "Your browser does not support selecting directories. Backups will be downloaded manually.",
+  "backupDirectorySelected": "Backup directory selected successfully. Automatic backups will be saved here.",
+  "failedToSelectBackupDirectory": "Failed to select backup directory:",
+  "failedToSelectBackupDirectoryAlert": "Failed to select backup directory. Please try again.",
+  "recoveryKeyNotFound": "Recovery key not found. Unable to create backup.",
+  "backupSavedToDirectory": "Backup saved successfully to selected directory",
+  "failedToSaveBackupToDirectory": "Failed to save backup to selected directory:",
+  "failedToRetrieveRecoveryKey": "Failed to retrieve recovery key.",
+  "failedToRestoreFromBackup": "Failed to restore from backup: ",
+  "failedToReadBackupFile": "Failed to read the backup file",
+
+  "backupCreatedSuccess": "Backup created successfully!",
+  "backupCreationError": "Failed to create backup:",
+  "backupCreationFailure": "Failed to create backup. Please try again.",
+  "selectBackupDirectoryPrompt": "Please select a directory for automatic backups in the settings.",
+
+  "startDate": "Start Date",
+  "endDate": "End Date",
+  "selectDataToExport": "Select data to export",
+  "healthData": "Health Data",
+  "personalInformation": "Personal Information",
+  "generateExcel": "Generate Excel",
+  "cancel": "Cancel",
+  "selectBothDates": "Please select both start and end dates.",
+  "selectAtLeastOneDataType": "Please select at least one data type to export.",
+  "errorExportingData": "Error exporting data:",
+  "errorExportingDataAlert": "An error occurred while exporting data. Please try again.",
+  "patientDataExport": "patient_data_export",
+
+
+
   "errorMessages": {
     "loginFailed": "Login failed. Please check your credentials and try again.",
     "accountCreationFailed": "Failed to create account. Please try again.",
     "personalInfoSaveFailed": "Failed to save personal information. Please try again.",
+    "allFieldsRequired": "Please fill out all fields.",
     "noteAddFailed": "Failed to add note. Please try again.",
     "noteEditFailed": "Failed to edit note. Please try again.",
+    "noteLoadFailed": "Failed to load notes",
     "noteDeleteFailed": "Failed to delete note. Please try again.",
     "healthDataSaveFailed": "Failed to save health data. Please try again.",
     "dataExportFailed": "Failed to export data. Please try again.",

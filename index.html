@@ -128,7 +128,13 @@
                         <label for="height" data-i18n="height">Height (cm)</label>
                     </div>
                     <div class="input-group">
-                        <input type="text" id="gender" required>
+                        <select id="gender" required>
+                            <option value="" disabled selected>Select gender</option>
+                            <option value="male" data-i18n="male">Male</option>
+                            <option value="female" data-i18n="female">Female</option>
+                            <option value="other" data-i18n="other">Other</option>
+                            <option value="prefer-not-to-say" data-i18n="preferNotToSay">Prefer not to say</option>
+                        </select>
                         <label for="gender" data-i18n="gender">Gender</label>
                     </div>
                     <button type="submit" class="btn-primary" data-i18n="savePersonalInfo">Save Personal Info</button>

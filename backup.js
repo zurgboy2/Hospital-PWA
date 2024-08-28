@@ -12,17 +12,17 @@ const isFileSystemAccessSupported = 'showDirectoryPicker' in window;
 // Function to let user select a backup directory
 export async function selectBackupDirectory() {
     if (!isFileSystemAccessSupported) {
-        alert('Your browser does not support selecting directories. Backups will be downloaded manually.');
+        alert(__('browserNotSupportDirectorySelection'));
         return;
     }
 
     try {
         backupDirectory = await window.showDirectoryPicker();
         localStorage.setItem('backupDirectorySelected', 'true');
-        alert('Backup directory selected successfully. Automatic backups will be saved here.');
+        alert(__('backupDirectorySelected'));
     } catch (error) {
-        console.error('Failed to select backup directory:', error);
-        alert('Failed to select backup directory. Please try again.');
+        console.error(__('failedToSelectBackupDirectory'), error);
+        alert(__('failedToSelectBackupDirectoryAlert'));
     }
 }
 
@@ -48,7 +48,7 @@ export async function createBackup() {
     // Retrieve the recovery key
     const recoveryKey = await getRecoveryKey(currentUser);
     if (!recoveryKey) {
-        throw new Error('Recovery key not found. Unable to create backup.');
+        throw new Error(__('recoveryKeyNotFound'));
     }
 
     // Encrypt the filtered data using the recovery key
@@ -65,8 +65,6 @@ export async function createBackup() {
             await writable.close();
             console.log('Backup saved successfully to selected directory');
         } catch (error) {
-            console.error('Failed to save backup to selected directory:', error);
-            // Fallback to download if saving to directory fails
             downloadBackup(backupContent, filename);
         }
     } else {
@@ -93,7 +91,7 @@ async function getRecoveryKey(username) {
             }
         };
         
-        request.onerror = () => reject(new Error('Failed to retrieve recovery key.'));
+        request.onerror = () => reject(new Error(__('failedToRetrieveRecoveryKey')));
     });
 }
 
@@ -150,10 +148,10 @@ export async function restoreFromFile(file, recoveryKey) {
                 await saveData(currentUser, mergedData, currentKey);
                 resolve(currentUser);
             } catch (error) {
-                reject(new Error('Failed to restore from backup: ' + error.message));
+                reject(new Error(__('failedToRestoreFromBackup')));
             }
         };
-        reader.onerror = () => reject(new Error('Failed to read the backup file'));
+        reader.onerror = () => reject(new Error(__('failedToReadBackupFile')));
         reader.readAsText(file);
     });
 }

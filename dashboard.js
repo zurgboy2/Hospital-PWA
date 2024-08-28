@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 import { loadPersonalInfo, handlePersonalInfoSubmit } from './personalInfo.js';
 import { loadHealthData, handleHealthDataSubmit } from './healthData.js';
 import { loadNotes, handleAddNote } from './note.js';
@@ -7,7 +8,6 @@ import { selectBackupDirectory, createBackup, scheduleBackups } from './backup.j
 import { setupExportDataHandler } from './exportData.js';
 
 export function setupDashboardHandlers() {
-    // Existing handlers
     initializeTabs();
     document.getElementById('personalInfoForm').addEventListener('submit', handlePersonalInfoSubmit);
     document.getElementById('addNoteBtn').addEventListener('click', handleAddNote);
@@ -17,7 +17,6 @@ export function setupDashboardHandlers() {
     document.getElementById('selectBackupDirBtn').addEventListener('click', handleSelectBackupDirectory);
     document.getElementById('createBackupBtn').addEventListener('click', handleCreateBackup);
     setupExportDataHandler();
-
 
     const today = new Date().toISOString().split('T')[0];
     const healthDateInput = document.getElementById('healthDate');
@@ -32,13 +31,12 @@ async function handleSelectBackupDirectory() {
 async function handleCreateBackup() {
     try {
         await createBackup();
-        alert('Backup created successfully!');
+        alert(__('backupCreatedSuccess'));
     } catch (error) {
-        console.error('Failed to create backup:', error);
-        alert('Failed to create backup. Please try again.');
+        console.error(__('backupCreationError'), error);
+        alert(__('backupCreationFailure'));
     }
 }
-
 
 function initializeTabs() {
     const tabs = document.querySelectorAll('.tab-button');
@@ -69,6 +67,6 @@ export async function loadDashboard() {
     // Check if a backup directory has been selected before
     const backupDirSelected = localStorage.getItem('backupDirectorySelected');
     if (!backupDirSelected) {
-        alert('Please select a directory for automatic backups in the settings.');
+        alert(__('selectBackupDirectoryPrompt'));
     }
 }

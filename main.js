@@ -3,7 +3,7 @@ import { setupAuthHandlers } from './auth.js';
 import { setupDashboardHandlers } from './dashboard.js';
 import { registerServiceWorker } from './serviceWorker.js';
 import { setupPWA } from './pwa.js';
-import { loadTranslations } from './i18n.js';
+import { loadTranslations, __ } from './i18n.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     await initDB();
@@ -17,11 +17,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const languageSelect = document.getElementById('languageSelect');
     if (languageSelect) {
         languageSelect.value = initialLang;
+        languageSelect.addEventListener('change', async (event) => {
+            await loadTranslations(event.target.value);
+            updatePageContent();
+        });
     }
+
     setupAuthHandlers();
     setupDashboardHandlers();
     registerServiceWorker();
     setupPWA();
+
     const accessToggleBtn = document.getElementById('accessToggleBtn');
     const dashboardTitle = document.getElementById('dashboardTitle');
     const loginSection = document.getElementById('loginSection');
@@ -31,17 +37,34 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     accessToggleBtn.addEventListener('click', () => {
         isDoctorMode = !isDoctorMode;
-        
+        updateAccessMode();
+    });
+
+    function updateAccessMode() {
         if (isDoctorMode) {
-            dashboardTitle.textContent = 'Doctor Dashboard';
-            accessToggleBtn.textContent = 'Patient Access';
+            dashboardTitle.textContent = __('doctorDashboard');
+            accessToggleBtn.textContent = __('patientAccess');
             loginSection.style.display = 'none';
             doctorLoginSection.style.display = 'block';
         } else {
-            dashboardTitle.textContent = 'Patient Dashboard';
-            accessToggleBtn.textContent = 'Doctor Access';
+            dashboardTitle.textContent = __('dashboardTitle');
+            accessToggleBtn.textContent = __('doctorAccess');
             loginSection.style.display = 'block';
             doctorLoginSection.style.display = 'none';
         }
-    });
+    }
+
+    function updatePageContent() {
+        // Update all translatable elements
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            element.textContent = __(key);
+        });
+
+        // Update specific elements that might not have data-i18n attribute
+        updateAccessMode();
+    }
+
+    // Initial update of page content
+    updatePageContent();
 });

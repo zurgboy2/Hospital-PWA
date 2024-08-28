@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 import { getCurrentUser, getCurrentKey } from './store.js';
 import { loadData } from './dataManager.js';
 
@@ -11,33 +12,33 @@ function showExportDataModal() {
     modal.style.display = 'block';
     modal.innerHTML = `
         <div class="export-modal-content">
-            <h2>Export Data as Excel</h2>
+            <h2>${__('exportDataAsExcel')}</h2>
             <div class="export-input-group">
-                <label for="startDate">Start Date:</label>
+                <label for="startDate">${__('startDate')}:</label>
                 <input type="date" id="startDate" required>
             </div>
             <div class="export-input-group">
-                <label for="endDate">End Date:</label>
+                <label for="endDate">${__('endDate')}:</label>
                 <input type="date" id="endDate" required>
             </div>
             <div class="export-input-group">
-                <p>Select data to export:</p>
+                <p>${__('selectDataToExport')}:</p>
                 <div class="export-checkbox-group">
                     <input type="checkbox" id="exportHealth" value="healthHistory">
-                    <label for="exportHealth">Health Data</label>
+                    <label for="exportHealth">${__('healthData')}</label>
                 </div>
                 <div class="export-checkbox-group">
                     <input type="checkbox" id="exportNotes" value="notes">
-                    <label for="exportNotes">Notes</label>
+                    <label for="exportNotes">${__('notes')}</label>
                 </div>
                 <div class="export-checkbox-group">
                     <input type="checkbox" id="exportPersonal" value="personalInfo">
-                    <label for="exportPersonal">Personal Information</label>
+                    <label for="exportPersonal">${__('personalInformation')}</label>
                 </div>
             </div>
             <div class="export-btn-group">
-                <button id="generateExcelBtn" class="btn-primary">Generate Excel</button>
-                <button id="closeModalBtn" class="btn-secondary">Cancel</button>
+                <button id="generateExcelBtn" class="btn-primary">${__('generateExcel')}</button>
+                <button id="closeModalBtn" class="btn-secondary">${__('cancel')}</button>
             </div>
         </div>
     `;
@@ -64,12 +65,12 @@ async function handleExportData() {
     const exportPersonal = document.getElementById('exportPersonal').checked;
 
     if (!startDate || !endDate) {
-        alert('Please select both start and end dates.');
+        alert(__('selectBothDates'));
         return;
     }
 
     if (!exportHealth && !exportNotes && !exportPersonal) {
-        alert('Please select at least one data type to export.');
+        alert(__('selectAtLeastOneDataType'));
         return;
     }
 
@@ -78,8 +79,8 @@ async function handleExportData() {
         generateExcelFile(data);
         document.body.removeChild(document.querySelector('.export-modal'));
     } catch (error) {
-        console.error('Error exporting data:', error);
-        alert('An error occurred while exporting data. Please try again.');
+        console.error(__('errorExportingData'), error);
+        alert(__('errorExportingDataAlert'));
     }
 }
 
@@ -114,18 +115,18 @@ function generateExcelFile(data) {
 
     if (data.healthHistory) {
         const healthSheet = XLSX.utils.json_to_sheet(data.healthHistory);
-        XLSX.utils.book_append_sheet(workbook, healthSheet, "Health Data");
+        XLSX.utils.book_append_sheet(workbook, healthSheet, __('healthData'));
     }
 
     if (data.notes) {
         const notesSheet = XLSX.utils.json_to_sheet(data.notes);
-        XLSX.utils.book_append_sheet(workbook, notesSheet, "Notes");
+        XLSX.utils.book_append_sheet(workbook, notesSheet, __('notes'));
     }
 
     if (data.personalInfo) {
         const personalSheet = XLSX.utils.json_to_sheet([data.personalInfo]);
-        XLSX.utils.book_append_sheet(workbook, personalSheet, "Personal Information");
+        XLSX.utils.book_append_sheet(workbook, personalSheet, __('personalInformation'));
     }
 
-    XLSX.writeFile(workbook, `patient_data_export_${new Date().toISOString().split('T')[0]}.xlsx`);
+    XLSX.writeFile(workbook, `${__('patientDataExport')}_${new Date().toISOString().split('T')[0]}.xlsx`);
 }
