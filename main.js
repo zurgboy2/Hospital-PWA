@@ -3,13 +3,12 @@ import { setupAuthHandlers } from './auth.js';
 import { setupDashboardHandlers } from './dashboard.js';
 import { registerServiceWorker } from './serviceWorker.js';
 import { setupPWA } from './pwa.js';
-import { loadTranslations, getPreferredLanguage } from './i18n.js';
+import { loadTranslations } from './i18n.js';
 import { setupLanguageSettings } from './languageSettings.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     await initDB();
-    const preferredLanguage = getPreferredLanguage();
-    await loadTranslations(preferredLanguage);
+    loadTranslations('en');
     setupLanguageSettings();
     setupAuthHandlers();
     setupDashboardHandlers();
