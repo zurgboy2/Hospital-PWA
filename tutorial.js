@@ -149,8 +149,8 @@ class TutorialSystem {
         <h2>${__(step.titleKey)}</h2>
         <p>${__(step.contentKey)}</p>
         <div class="tutorial-navigation">
-          ${this.currentStep > 0 ? `<button class="tutorial-prev">${__('tutorialPrevious')}</button>` : '<div></div>'}
-          ${this.currentStep < this.steps.length - 1 ? `<button class="tutorial-next">${__('tutorialNext')}</button>` : ''}
+          ${this.currentStep > 0 ? `<button class="tutorial-prev">${__('tutorialPrevious')}</button>` : ''}
+          <button class="tutorial-next">${__('tutorialNext')}</button>
           <button class="tutorial-end">${__('tutorialEnd')}</button>
         </div>
       </div>
