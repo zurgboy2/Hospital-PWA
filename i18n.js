@@ -1,6 +1,10 @@
 let currentLanguage = 'en';
 let translations = {};
 
+document.getElementById('languageSelect').addEventListener('change', (event) => {
+  loadTranslations(event.target.value);
+});
+
 export async function loadTranslations(lang) {
   try {
     const response = await fetch(`translations/${lang}.json`);

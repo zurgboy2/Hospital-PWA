@@ -4,12 +4,13 @@ import { setupDashboardHandlers } from './dashboard.js';
 import { registerServiceWorker } from './serviceWorker.js';
 import { setupPWA } from './pwa.js';
 import { loadTranslations } from './i18n.js';
-import { setupLanguageSettings } from './languageSettings.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     await initDB();
-    loadTranslations('en');
-    setupLanguageSettings();
+    const userLang = navigator.language || navigator.userLanguage;
+    const initialLang = userLang.startsWith('pt') ? 'pt' : 'en';
+    document.getElementById('languageSelect').value = initialLang;
+    loadTranslations(initialLang);
     setupAuthHandlers();
     setupDashboardHandlers();
     registerServiceWorker();
