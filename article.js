@@ -1,4 +1,5 @@
 import { makeRequest } from "./api.js";
+import { __, getCurrentLanguage } from './i18n.js';
 
 export let currentArticles = []; // Declare a variable to store the current articles
 
@@ -14,34 +15,36 @@ export async function loadArticles() {
 }
 
 export function displayArticles(articles) {
-    currentArticles = articles; // Store the articles for later use
+    currentArticles = articles;
     const articlesList = document.getElementById('articlesList');
     if (!Array.isArray(articles)) {
         console.error('Articles is not an array:', articles);
-        articlesList.innerHTML = '<p>No articles available at the moment.</p>';
+        articlesList.innerHTML = `<p>${__('noArticlesAvailable')}</p>`;
         return;
     }
+    const currentLang = getCurrentLanguage();
     articlesList.innerHTML = articles.map((article, index) => `
         <div class="article-item">
             <div class="article-content">
-                <h4>${article.title}</h4>
-                <p>${truncateText(article.fullText, 100)}</p>
+                <h4>${article[`title${currentLang.toUpperCase()}`] || article.titleEN}</h4>
+                <p>${truncateText(article[`fullText${currentLang.toUpperCase()}`] || article.fullTextEN, 100)}</p>
             </div>
             <div class="article-footer">
-                <button onclick="openArticleModal(${index})">Read more</button>
+                <button onclick="openArticleModal(${index})">${__('readMore')}</button>
             </div>
         </div>
     `).join('');
 }
 
 export function openArticleModal(index) {
-    const article = currentArticles[index]; // Use currentArticles instead of articles
+    const article = currentArticles[index];
     const modal = document.getElementById('articleModal');
     const modalContent = document.getElementById('articleModalContent');
+    const currentLang = getCurrentLanguage();
     
     modalContent.innerHTML = `
-        <h2>${article.title}</h2>
-        <p>${article.fullText}</p>
+        <h2>${article[`title${currentLang.toUpperCase()}`] || article.titleEN}</h2>
+        <p>${article[`fullText${currentLang.toUpperCase()}`] || article.fullTextEN}</p>
     `;
     
     modal.style.display = 'block';
@@ -78,7 +81,7 @@ export async function fetchArticles() {
     } catch (error) {
         console.error('Failed to fetch articles:', error);
         // In case of error, try to use cached data
-        const cachedArticles = localStorage.getItem('cachedArticles');
+        const cachedArticles = localStorage.setItem('cachedArticles');
         const parsedData = cachedArticles ? JSON.parse(cachedArticles) : { articles: [] };
         return parsedData.articles || [];
     }
@@ -88,6 +91,7 @@ export function truncateText(text, maxLength) {
     if (text.length <= maxLength) return text;
     return text.substr(0, maxLength) + '...';
 }
+
 // Event listener for closing modal when clicking outside
 window.onclick = function(event) {
     const modal = document.getElementById('articleModal');

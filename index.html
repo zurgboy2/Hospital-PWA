@@ -45,17 +45,17 @@
                     <label for="password" data-i18n="password">Password</label>
                 </div>
                 <button type="submit" id="loginButton" class="btn-primary">
-                    <i class="fas fa-sign-in-alt" data-i18n="loginButton"></i> Login
+                    <i class="fas fa-sign-in-alt"></i> <span data-i18n="loginButton">Login</span>
                 </button>
             </form>
             <p class="text-center">
                 <span id="authDescription" data-i18n="dontHaveAccount">Don't have an account? </span>
-                <a href="#" id="createAccountLink" >Create one</a>
+                <a href="#" id="createAccountLink" data-i18n="createOne">Create one</a>
             </p>
         </div>
 
         <div id="doctorLoginSection" class="card centered" style="display:none;">
-            <h2>Doctor Login</h2>
+            <h2 data-i18n="doctorLogin">Doctor Login</h2>
             <form id="doctorLoginForm">
                 <div class="input-group">
                     <input type="text" id="doctorUsername" required>
@@ -68,7 +68,7 @@
                 <button type="submit" class="btn-primary" data-i18n="loginButton">Login</button>
             </form>
             <p class="text-center" data-i18n="dontHaveAccount">Don't have an account? 
-                <a href="#" id="doctorCreateAccountLink">Create one</a>
+                <a href="#" id="doctorCreateAccountLink" data-i18n="createOne">Create one</a>
             </p>
         </div>
 
@@ -93,17 +93,17 @@
                 </div>
                 <button type="submit" class="btn-primary" data-i18n="signUpButton">Sign Up</button>
             </form>
-            <p class="text-center"data-i18n="alreadyHaveAccount">Already have an account? <a href="#" id="doctorLoginLink">Login</a></p>
+            <p class="text-center" data-i18n="alreadyHaveAccount">Already have an account? <a href="#" id="doctorLoginLink">Login</a></p>
         </div>
 
         <div id="dashboardSection" class="card" style="display:none;">
             <div class="tabs">
-                <button class="tab-button active" data-tab="info">Info</button>
-                <button class="tab-button" data-tab="personal">Personal</button>
-                <button class="tab-button" data-tab="notes">Notes</button>
-                <button class="tab-button" data-tab="health">Health</button>
-                <button class="tab-button" data-tab="requests">Requests</button>
-                <button class="tab-button" data-tab="settings">Settings</button>
+                <button class="tab-button active" data-tab="info" data-i18n="info">Info</button>
+                <button class="tab-button" data-tab="personal" data-i18n="personal">Personal</button>
+                <button class="tab-button" data-tab="notes" data-i18n="note">Notes</button>
+                <button class="tab-button" data-tab="health" data-i18n="health">Health</button>
+                <button class="tab-button" data-tab="requests" data-i18n="requests">Requests</button>
+                <button class="tab-button" data-tab="settings" data-i18n="settings">Settings</button>
             </div>
 
             <div id="infoTab" class="tab-content active">
@@ -132,7 +132,7 @@
                         <input type="text" id="gender" required>
                         <label for="gender" data-i18n="gender">Gender</label>
                     </div>
-                    <button type="submit" class="btn-primary" data-i18n="preferNotToSay">Save Personal Info</button>
+                    <button type="submit" class="btn-primary" data-i18n="savePersonalInfo">Save Personal Info</button>
                 </form>
             </div>
 
@@ -186,24 +186,24 @@
             </div>
 
             <div id="settingsTab" class="tab-content">
-                <h2>Settings</h2>
+                <h2 data-i18n="settings">Settings</h2>
                 <div class="backup-section">
-                    <h3>Backup and Recovery</h3>
+                    <h3 data-i18n="backupAndRecovery">Backup and Recovery</h3>
                     <p>Select a directory on your computer where automatic backups will be saved daily.</p>
-                    <button id="selectBackupDirBtn" class="btn-secondary">Select Backup Directory</button>
+                    <button id="selectBackupDirBtn" class="btn-secondary" data-i18n="selectBackupDirectory">Select Backup Directory</button>
                     <p>You can also create a manual backup at any time:</p>
                     <button id="createBackupBtn" class="btn-primary">Create Backup Now</button>
                     <p>Remember: Keep your recovery key safe. You'll need it to restore from a backup if you get locked out of your account.</p>
                 </div>
                 <div class="export-section">
-                    <h3>Export Data</h3>
+                    <h3 data-i18n="exportData">Export Data</h3>
                     <p>Export your data as an Excel file:</p>
-                    <button id="exportDataBtn" class="btn-primary">Export Data as Excel</button>
+                    <button id="exportDataBtn" class="btn-primary" data-i18n="exportDataAsExcel">Export Data as Excel</button>
                 </div>
             </div>
             
 
-            <button id="logoutButton" class="btn-secondary">Logout</button>
+            <button id="logoutButton" class="btn-secondary" data-i18n="logout">Logout</button>
         </div>
     </div>
     <div id="articleModal" class="modal">

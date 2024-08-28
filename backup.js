@@ -2,6 +2,7 @@ import { getCurrentUser, getCurrentKey } from './store.js';
 import { encryptData, decryptData } from './crypto.js';
 import { loadData, saveData } from './dataManager.js';
 import { getDbPromise, STORE_NAME } from './db.js';
+import { __ } from './i18n.js';
 
 let backupDirectory = null;
 
