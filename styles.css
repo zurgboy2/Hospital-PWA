@@ -64,23 +64,74 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(128, 0, 0, 0.7); /* Maroon with opacity */
     z-index: 1000;
-  }
-  
-  .tutorial-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    max-width: 300px;
-  }
-  
-  .tutorial-navigation {
-    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tutorial-content {
+    background-color: var(--surface-color);
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+}
+
+.tutorial-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 16px;
+    font-size: 1.5rem;
+}
+
+.tutorial-content p {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.tutorial-navigation {
+    margin-top: 24px;
     display: flex;
     justify-content: space-between;
-  }
+    gap: 12px;
+}
+
+.tutorial-navigation button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.tutorial-prev,
+.tutorial-next {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.tutorial-prev:hover,
+.tutorial-next:hover {
+    background-color: var(--primary-light);
+    color: var(--surface-color);
+}
+
+.tutorial-end {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+}
+
+.tutorial-end:hover {
+    background-color: var(--primary-light);
+}
+
+.tutorial-navigation button:active {
+    transform: scale(0.98);
+}
 
 .card {
     background-color: var(--surface-color);
@@ -133,48 +184,44 @@ header {
     display: flex;
     align-items: center;
 }
+
 .header-right {
     display: flex;
     align-items: center;
-    gap: 10px; /* Adds space between elements */
+    gap: 10px; /* Adds space between the buttons */
 }
 
-#tutorialButton {
-    display: flex;
-    align-items: center;
-    padding: 5px 10px;
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
+.header-button {
+    padding: 8px 12px;
+    font-size: 14px;
     border: none;
     border-radius: 4px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
+    min-width: 120px; /* Set a minimum width for all buttons */
+    text-align: center;
 }
 
-#tutorialButton:hover {
+.header-button:hover {
     background-color: var(--primary-light);
     color: var(--surface-color);
 }
 
-#tutorialButton i {
-    margin-right: 5px;
-}
 .language-selector {
     display: flex;
-    align-items: center;
-    margin-left: 20px;
 }
-.language-selector label {
-    margin-right: 10px;
-    color: var(--surface-color);
-}
+
 #languageSelect {
-    padding: 5px;
-    background-color: var(--surface-color);
-    color: var(--primary-color);
-    border: none;
-    border-radius: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23800000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 30px; /* Make room for the dropdown arrow */
 }
 
 input, select, textarea {
