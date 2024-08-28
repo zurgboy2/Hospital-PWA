@@ -48,23 +48,43 @@ function updatePageContent() {
         element.value = translation;
       } else if (element.tagName === 'OPTION') {
         element.textContent = translation;
+      } else if (element.tagName === 'BUTTON' || (element.parentElement && element.parentElement.tagName === 'BUTTON')) {
+        // Handle buttons or elements inside buttons
+        updateButtonContent(element.tagName === 'BUTTON' ? element : element.parentElement, translation);
       } else {
-        // Check if the element is a child of a button
-        if (element.parentElement && element.parentElement.tagName === 'BUTTON') {
-          // If it's a child of a button, only update the text node
-          const textNode = Array.from(element.parentElement.childNodes)
-            .find(node => node.nodeType === Node.TEXT_NODE);
-          if (textNode) {
-            textNode.nodeValue = ' ' + translation; // Add a space before the text
-          } else {
-            element.textContent = translation;
-          }
-        } else {
-          element.textContent = translation;
-        }
+        element.textContent = translation;
       }
     }
   });
+}
+
+function updateButtonContent(button, translation) {
+  // Remove any existing text nodes
+  Array.from(button.childNodes)
+    .filter(node => node.nodeType === Node.TEXT_NODE)
+    .forEach(node => button.removeChild(node));
+  
+  // Find the position to insert the text
+  const iconElement = button.querySelector('i');
+  
+  if (iconElement) {
+    // If there's an icon, insert the text after it
+    const textNode = document.createTextNode(' ' + translation);
+    if (iconElement.nextSibling) {
+      button.insertBefore(textNode, iconElement.nextSibling);
+    } else {
+      button.appendChild(textNode);
+    }
+  } else {
+    // If there's no icon, just set the button text
+    button.textContent = translation;
+  }
+
+  // Remove any span elements that might have been added for translation
+  const spanElement = button.querySelector('span[data-i18n]');
+  if (spanElement) {
+    button.removeChild(spanElement);
+  }
 }
 
 // Initial load of default language
