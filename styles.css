@@ -203,31 +203,24 @@ header {
     align-items: center;
 }
 
+.header-title {
+    flex-grow: 1;
+}
+
 #dashboardTitle {
     margin: 0;
     font-size: 1.5rem;
 }
 
-#mobileMenuToggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-#mobileMenuToggle span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: var(--surface-color);
-    margin: 5px 0;
+.header-controls {
+    display: flex;
+    align-items: center;
 }
 
 .header-nav {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: 10px;
 }
 
 .header-button {
@@ -245,6 +238,26 @@ header {
 .header-button:hover {
     background-color: var(--primary-light);
     color: var(--surface-color);
+}
+
+.menu-icon-container {
+    display: none;
+    margin-left: 10px;
+}
+
+#mobileMenuToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#mobileMenuToggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--surface-color);
+    margin: 5px 0;
 }
 
 .language-selector {
@@ -769,14 +782,17 @@ a:hover {
     .article-footer {
         justify-content: flex-start;
     }
-    #mobileMenuToggle {
-        display: block;
-    }
 
     .header-nav {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--primary-color);
         flex-direction: column;
         align-items: stretch;
+        padding: 10px;
     }
 
     .header-nav.show {
@@ -785,9 +801,14 @@ a:hover {
 
     .header-button, .language-selector {
         width: 100%;
+        margin-bottom: 10px;
     }
 
     #languageSelect {
         width: 100%;
+    }
+
+    .menu-icon-container {
+        display: block;
     }
 }
